@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Data Mitra - PA</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <!-- <link href="assets/img/favicon.png" rel="icon"> -->
+  <!-- <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+  <link rel="icon" href="/assets/favicon.ico" />
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+  <link href="/assets/css/btnCostum.css" rel="stylesheet">
+  <link href="/assets/css/pertaminaCore.css" rel="stylesheet">
+
+  <!-- Table CSS Costum -->
+  <!-- <link href="/assets/css/table/tableStyling.css" rel="stylesheet"> -->
+  <link href="/assets/css/table/searchboxStyle.css" rel="stylesheet">
+
+  
+
+  <link href="/assets/css/inputCostum.css" rel="stylesheet">
+  <!-- <link href="assets/css/styleCostum.css" rel="stylesheet"> -->
+
+  <!-- *Toastr Link  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+
+  <!-- Bootstrap Icon -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
+
+
+
+  <!-- =======================================================
+  * Template Name: Green
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/green-free-one-page-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+
+  <!-- Toastr -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
+  <style>
+    .img-responsive {
+      max-width: 100%;
+      height: auto;
+      }
+
+  </style>
+
+  <style>
+    /* Tambahkan styling sesuai kebutuhan Anda */
+    .hidden {
+      display: none;
+    }
+  </style>
+
+  <style>
+    /* Tambahkan styling sesuai kebutuhan Anda */
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 767px) {
+      /* Style khusus untuk perangkat seluler */
+      .portfolio-details .container {
+        padding: 0;
+      }
+
+      .portfolio-details .row {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .portfolio-details .col-3 {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+
+
+  <style>
+
+    /* Custom Tooltip Style */
+    .tooltip-inner {
+        background-color: #19314a; /* Ganti warna latar belakang tooltip sesuai keinginan Anda */
+        color: #ffffff; /* Ganti warna teks tooltip sesuai keinginan Anda */
+        border: 1px solid #19314a; /* Ganti warna border tooltip sesuai keinginan Anda */
+    }
+  </style>
+  
+
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center" style="background-color: #32599C;">
+    <div class="container d-flex align-items-center">
+
+      <div class="d-flex">
+
+        <h1 class="logo me-auto">
+          <a class="navbar-brand me-3" href="#">
+            <img src="/assets/img/logo.png" alt="Logo" width="200" height="48" class="d-inline-block align-text-top">
+            
+          </a>
+        </h1>  
+        <a href="/" class="fs-3 fw-bold text-white">| SIBER</a>
+      </div>
+      
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar ms-auto">
+        <ul>
+          <li><a class="nav-link scrollto" href="/dashboard-pertamina">Dashboard</a></li>
+          <!-- <li><a class="nav-link scrollto" href="#berita">Data</a></li> -->
+          <!-- <li><a class="nav-link scrollto" href="#topik">Topik Utama</a></li> -->
+          <!-- <li><a class="nav-link scrollto " href="#creator">Creator</a></li> -->
+          <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li> -->
+          <li class="dropdown"><a href="#"><span>Data</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a  id="menu-data-mitra" href="#">Data Mitra</a></li>
+              <!-- <li><a href="#creator">Creator</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li> -->
+            </ul>
+          </li>
+          <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
+          <!-- <li><a class="getstarted scrollto" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Log Out</a></li> -->
+          
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+
+  <main id="main" class="mb-4">
+    <!-- START DASHBOARD - DEFAULT CONTENT-->
+    <div id="content-container">
+
+      <!-- ======= Breadcrumbs ======= -->
+      <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+          <div class="d-flex justify-content-between align-items-center">
+            <h2 class="fw-bold">Data Mitra - PA</h2>
+          </div>
+          
+          <div class="d-flex justify-content-between align-items-center">
+            <ol>
+              <li><a href="#" id="menu-dashboard"><i class="fa-solid fa-house mx-1"></i>Dashboard Pertamina</a></li>
+              <li>Data Mitra</li>
+              <li>PA</li>
+            </ol>
+          </div>
+          
+        </div>
+      </section><!-- End Breadcrumbs -->
+
+      <!-- *KOTAK KHUSUS dashboard -->
+      <section id="portfolio-details" class="portfolio-details ">
+        <div class="container">
+          <div class="search-box float-end mb-2">
+            <input type="text" placeholder="Search..." id="search-bar">
+            <button class="btn-srch"><i class="bi bi-search"></i></button>
+        </div>
+        </div>
+        
+        <div class="container mt-1">
+
+            <table class="table table-sm table-hover" id="data-table-view">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th>No</th>
+                        <th>Nama Kontraktor</th>  <!-- 🧘 --> 
+                        <th>Risk Level</th>
+                        <th>Tanggal Penilaian</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i = 0; i < dataPA.length; i++) { %>
+                        <tr class="text-center">
+                            <td><%= i + 1%></td>
+                            <td><%= dataPA[i].nama_kontraktor %></td>
+                            <td><%= dataPA[i].risk_level %></td>
+                            <td><%= dataPA[i].tanggal_penilaian %></td>
+                            <td>
+                              <% if (dataPA[i].status_mitra === "Belum Diproses") { %>
+                                <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
+                                    <i class="fa-solid fa-spinner fa-spin"></i>
+                                </button>
+                                
+                              <% }else if (dataPA[i].status_mitra === "Diterima") { %>
+                                  <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip">
+                                      <i class="fa-solid fa-check"></i>
+                                  </button>
+                              <% } else if(dataPA[i].status_mitra === "Ditolak") { %>
+                                  <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip">
+                                      <i class="fa-solid fa-check"></i>
+                                  </button>
+                              <% } %>
+                            </td>
+                            <!-- <td><button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip"><i class="fa-solid fa-square-xmark"></i></button></td> -->
+                            
+                            <!-- <td><button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip"><i class="fa-solid fa-square-check"></i></button></td> -->
+                            
+                            <td>
+                                <a href="/data/detail-pa/<%= dataPA[i].id_pa %>"class="btn border-shadow custom-tooltip" data-bs-toggle="tooltip" data-bs-title="Detail Data" data-bs-placement="bottom">
+                                    <span class=""><i class="fa-solid fa-grip-vertical"></i></span>
+                                </a>
+
+                                <a  class="btn btn-sm border-shadow update custom-tooltip" id="set_edit" data-bs-toggle="tooltip" data-bs-title="Verifikasi Data" data-bs-placement="bottom"><i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                               
+                                <!-- <a class="btn border-shadow delete" href="" >
+                                    <span class="text-gradient"><i class="bi bi-trash2-fill"></i></span>
+                                </a> -->
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+
+        </div>
+      </section>
+      <!-- END KOTAK KHUSUS DASHBOARD -->
+    </div>
+    <!-- END DASHBOARD -->
+
+
+  
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+
+  <%-include('partials/footer') %>
+  <!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="/assets/js/notificationToastr.js"></script>
+  <script src="/assets/js/optionLogin.js"></script>
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main.js"></script>
+
+
+  <script>
+    // Fungsi untuk menampilkan div Data Mitra
+    function showMitraContent() {
+      // Sembunyikan div default
+      document.getElementById("content-container").classList.add("hidden");
+      // Tampilkan div Data Mitra
+      document.getElementById("data-mitra-container").classList.remove("hidden");
+    }
+  
+    // Fungsi untuk menampilkan div Dashboard
+    function showDashboardContent() {
+      // Sembunyikan div Data Mitra
+      document.getElementById("data-mitra-container").classList.add("hidden");
+      // Tampilkan div default
+      document.getElementById("content-container").classList.remove("hidden");
+    }
+  
+    // Event listener untuk menangkap klik pada menu Data Mitra
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("menu-data-mitra").addEventListener("click", function (event) {
+        event.preventDefault(); // Menghentikan navigasi ke halaman baru
+        showMitraContent(); // Memanggil fungsi untuk menampilkan div Data Mitra
+      });
+  
+      // Event listener untuk menangkap klik pada menu Dashboard
+      document.getElementById("menu-dashboard").addEventListener("click", function (event) {
+        event.preventDefault(); // Menghentikan navigasi ke halaman baru
+        showDashboardContent(); // Memanggil fungsi untuk menampilkan div Dashboard
+      });
+    });
+  </script>
+
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('.custom-tooltip'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+  </script>
+
+ 
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var tanggalAuditElements = document.querySelectorAll("#data-table-view tbody td:nth-child(4)");
+    
+        tanggalAuditElements.forEach(function(element) {
+            var tanggalAuditRaw = element.textContent;
+            var tanggalAudit = new Date(tanggalAuditRaw);
+    
+            var options = {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                timeZone: "Asia/Jakarta" // Sesuaikan dengan zona waktu yang sesuai
+            };
+    
+            var formattedDate = tanggalAudit.toLocaleDateString("id-ID", options);
+            element.textContent = formattedDate;
+        });
+    });
+  </script>
+    
+
+</body>
