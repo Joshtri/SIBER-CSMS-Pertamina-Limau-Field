@@ -40,7 +40,7 @@ app.set("views", [
     path.join(__dirname, "/views"),
     path.join(__dirname, "/views/detail"),
     path.join(__dirname, "/views/data"),
-    // path.join(__dirname, "/views/layouts"),
+    path.join(__dirname, "/views/updates"),
   ]);
 
 

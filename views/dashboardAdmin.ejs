@@ -282,7 +282,9 @@
                 <div class="card-body">
                   <!-- Isi card disini -->
                   <h6 class="fw-bold">Ikhtisar Data</h6><br>
-                  Data 2: Dolor Sit Amet
+                  <p>Belum Diverifikasi: <%= blmDiprosesCountHSE %></p>
+                  <p>Ditolak : <%= ditolakCountHSE %></p>
+                  <p>Diterima : <%= diterimaCountHSE %></p>
                 </div>
               </div>
 
@@ -306,7 +308,9 @@
                 <div class="card-body">
                   <!-- Isi card disini -->
                   <h6 class="fw-bold">Ikhtisar Data</h6><br>
-                  Data 2: Dolor Sit Amet
+                  <p>Belum Diverifikasi: <%= blmDiprosesCountPSB %></p>
+                  <p>Ditolak : <%= ditolakCountPSB %></p>
+                  <p>Diterima : <%= diterimaCountPSB %></p>
                 </div>
               </div>
 
@@ -330,7 +334,9 @@
                 <div class="card-body">
                   <!-- Isi card disini -->
                   <h6 class="fw-bold">Ikhtisar Data</h6><br>
-                  Data 2: Dolor Sit Amet
+                  <p>Belum Diverifikasi: <%= blmDiprosesCountPB %></p>
+                  <p>Ditolak : <%= ditolakCountPB %></p>
+                  <p>Diterima : <%= diterimaCountPB %></p>
                 </div>
               </div>
 
@@ -353,7 +359,11 @@
                 <div class="card-body">
                   <!-- Isi card disini -->
                   <h6 class="fw-bold">Ikhtisar Data</h6><br>
-                  Data 2: Dolor Sit Amet
+
+                  <p>Belum Diverifikasi: <%= blmDiprosesCountPA %></p>
+                  <p>Ditolak : <%= ditolakCountPA %></p>
+                  <p>Diterima : <%= diterimaCountPA %></p>
+                  
                 </div>
               </div>
             </div>
@@ -429,46 +439,6 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
-  <!-- <script>
-    // Fungsi untuk mengubah konten ketika menu Data Mitra diklik
-    function loadMitraContent() {
-      // Ganti konten pada elemen dengan ID content-container
-      document.getElementById("content-container").innerHTML = `
-
-        <h2 class="fw-bold">Data Mitra</h2>
-        <p>Isi konten Data Mitra di sini...</p>
-      `;
-    }
-  
-    // Event listener untuk menangkap klik pada menu Data Mitra
-    document.addEventListener("DOMContentLoaded", function() {
-      document.getElementById("menu-data-mitra").addEventListener("click", function(event) {
-        event.preventDefault(); // Menghentikan navigasi ke halaman baru
-        loadMitraContent(); // Memanggil fungsi untuk mengubah konten
-      });
-    });
-  </script>  -->
-
-  <!-- <script>
-    // Fungsi untuk menampilkan div Data Mitra
-    function showMitraContent() {
-      // Sembunyikan div default
-      document.getElementById("content-container").classList.add("hidden");
-      // Tampilkan div Data Mitra
-      document.getElementById("data-mitra-container").classList.remove("hidden");
-    }
-  
-    // Event listener untuk menangkap klik pada menu Data Mitra
-    document.addEventListener("DOMContentLoaded", function() {
-      document.getElementById("menu-data-mitra").addEventListener("click", function(event) {
-        event.preventDefault(); // Menghentikan navigasi ke halaman baru
-        showMitraContent(); // Memanggil fungsi untuk menampilkan div Data Mitra
-      });
-    });
-
-
-  </script> -->
 
   <script>
     // Fungsi untuk menampilkan div Data Mitra

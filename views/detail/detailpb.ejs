@@ -142,6 +142,48 @@
       </div>
     </section><!-- End Breadcrumbs -->
 
+    <style>
+      .custom-toast-header {
+        background-color: white;
+ /* Blue background color */
+        color: white; /* Text color */
+        border-bottom: 1px solid #ccc; /* Border color */
+        padding: 10px; /* Add padding if needed */
+      }
+    
+      .custom-toast-header .custom-avatar {
+        width: 20px; /* Adjust the width as needed */
+        height: 20px; /* Adjust the height as needed */
+        background-color: rgb(45, 118, 196);
+        border-radius: 3px; /* Add border-radius for rounded corners if needed */
+      }
+    
+      .custom-toast-body {
+        background-color: white;
+        border: 1px solid #ccc; /* Add the desired color for the outline */
+        padding: 10px; /* Add padding if needed */
+      }
+    </style>
+    
+    <div class="toast fade show ms-auto mx-4 animate__animated animate__fadeIn" role="alert" aria-live="assertive" aria-atomic="true" id="notification-toast">
+      <div class="toast-header custom-toast-header animate__animated animate__shakeX">
+        <div class="custom-avatar rounded me-2"></div>
+        <strong class="me-auto text-dark">Notifikasi</strong>
+        <small class="text-dark"><span id="countdown">60</span> second ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body custom-toast-body animate__animated animate__rubberBand">
+        Nomor kontrak dengan nomor <%= nomor_kontrak %>
+        <% if (status_mitra === "Belum Diproses") { %>
+          <strong class="text-warning"><%= status_mitra %></strong>
+        <% } else if (status_mitra === "Diterima") { %>
+          <strong class="text-success"><%= status_mitra %></strong>
+        <% } else if(status_mitra === "Ditolak") { %>
+          <strong class="text-danger"><%= status_mitra %></strong>
+        <% } %> 
+      </div>
+    </div>
+
     <!-- ======= Login Us Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
@@ -150,7 +192,8 @@
         </div>
 
         <div class="mb-3">
-            <a href="/data/psb-data" class="btn btn-sm btn-success"><i class="fa-solid fa-chevron-left fa-beat-fade"></i> Kembali</a>
+            <a href="/data/pb-data" class="btn btn-sm btn-success"><i class="fa-solid fa-chevron-left fa-beat-fade"></i> Kembali</a>
+            <a href="/data/update-pb/<%= id_pb %>" class="float-end btn btn-sm btn-warning mx-2"><i class="mx-2 fa-solid fa-square-pen fa-beat-fade"></i>Verifikasi Data</a>
         </div>
 
         <div class="col-lg-12  mx-auto d-flex">
@@ -334,6 +377,23 @@
     });
   </script>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var toast = new bootstrap.Toast(document.getElementById('notification-toast'), { delay: 60000 });
+      toast.show();
+
+      var countdownElement = document.getElementById('countdown');
+      var countdown = 60;
+
+      var countdownInterval = setInterval(function () {
+        countdown--;
+        countdownElement.textContent = countdown;
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+    });
+  </script>
 
   <script src="/assets/js/notificationToastr.js"></script>
   <script src="/assets/js/optionLogin.js"></script>

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Detail HSE</title>
+  <title>Detail PSB</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -141,16 +141,59 @@
 
       </div>
     </section><!-- End Breadcrumbs -->
+    <style>
+      .custom-toast-header {
+        background-color: white;
+ /* Blue background color */
+        color: white; /* Text color */
+        border-bottom: 1px solid #ccc; /* Border color */
+        padding: 10px; /* Add padding if needed */
+      }
+    
+      .custom-toast-header .custom-avatar {
+        width: 20px; /* Adjust the width as needed */
+        height: 20px; /* Adjust the height as needed */
+        background-color: rgb(45, 118, 196);
+        border-radius: 3px; /* Add border-radius for rounded corners if needed */
+      }
+    
+      .custom-toast-body {
+        background-color: white;
+        border: 1px solid #ccc; /* Add the desired color for the outline */
+        padding: 10px; /* Add padding if needed */
+      }
+    </style>
+    
+
+    <div class="toast fade show ms-auto mx-4 animate__animated animate__fadeIn" role="alert" aria-live="assertive" aria-atomic="true" id="notification-toast">
+      <div class="toast-header custom-toast-header animate__animated animate__shakeX">
+        <div class="custom-avatar rounded me-2"></div>
+        <strong class="me-auto text-dark">Notifikasi</strong>
+        <small class="text-dark"><span id="countdown">60</span> detik yang lalu</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Tutup" onclick="closeToast()"></button>
+      </div>
+      <div class="toast-body custom-toast-body animate__animated animate__rubberBand">
+        Kontraktor dengan nama <%= nama_kontraktor %>
+        <% if (status_mitra === "Belum Diproses") { %>
+          <strong class="text-warning"><%= status_mitra %></strong>
+        <% } else if (status_mitra === "Diterima") { %>
+          <strong class="text-success"><%= status_mitra %></strong>
+        <% } else if(status_mitra === "Ditolak") { %>
+          <strong class="text-danger"><%= status_mitra %></strong>
+        <% } %> 
+      </div>
+    </div>
 
     <!-- ======= Login Us Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
         <div class="section-title">
-          <h2>DETAIL DATA MITRA - HSE PLAN</h2>
+          <h2>DETAIL DATA MITRA - PSB</h2>
         </div>
 
         <div class="mb-3">
             <a href="/data/psb-data" class="btn btn-sm btn-success"><i class="fa-solid fa-chevron-left fa-beat-fade"></i> Kembali</a>
+            <a href="/data/update-psb/<%= id_psb %>" class="float-end btn btn-sm btn-warning mx-2"><i class="mx-2 fa-solid fa-square-pen fa-beat-fade"></i>Verifikasi Data</a>
         </div>
 
         <div class="col-lg-12  mx-auto d-flex">
@@ -340,6 +383,44 @@
     });
   </script>
 
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var toast = new bootstrap.Toast(document.getElementById('notification-toast'), { delay: 60000 });
+      toast.show();
+
+      var countdownElement = document.getElementById('countdown');
+      var countdown = 60;
+
+      var countdownInterval = setInterval(function () {
+        countdown--;
+        countdownElement.textContent = countdown;
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+    });
+
+    function closeToast() {
+    var toast = document.getElementById('notification-toast');
+    toast.classList.toggle('animate__fadeIn');
+    toast.classList.toggle('animate__fadeOut animate__delay-2s');
+
+    // Optional: Menambahkan jeda sebelum menyembunyikan toast untuk memainkan animasi fade-out
+    setTimeout(function () {
+      var bsToast = new bootstrap.Toast(toast);
+      bsToast.hide();
+    }, 500); // Sesuaikan jeda sesuai kebutuhan
+  }
+  </script>
+
+
+  <script>
+    $(document).ready(function(){
+
+
+    });
+  </script>
 
   <script src="/assets/js/notificationToastr.js"></script>
   <script src="/assets/js/optionLogin.js"></script>

@@ -54,6 +54,21 @@ router.get('/data/detail-pa/:id_pa', mitraController.detailPAData);
 
 
 
+//update router and function.
+router.get('/data/update-hse/:id_hse', mitraController.updateHSEdata);
+router.get('/data/update-psb/:id_psb', mitraController.updatePSBdata);
+router.get('/data/update-pa/:id_pa', mitraController.updatePAdata);
+router.get('/data/update-pb/:id_pb', mitraController.updatePBdata);
+
+
+
+//POST update router 
+/* note : baru 2  POST UPDATE! */
+router.post('/data/post-update-hse',mitraController.postUpdateHSEPdata);
+router.post('/data/post-update-psb', mitraController.postUpdatePSBdata);
+router.post('/data/post-update-pa',mitraController.postUpdatePAdata);
+router.post('/data/post-update-pb', mitraController.postUpdatePBdata);
+
 module.exports = router;
 
 

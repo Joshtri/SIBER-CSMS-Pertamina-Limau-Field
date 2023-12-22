@@ -135,6 +135,85 @@
       </div>
     </section><!-- End Breadcrumbs -->
 
+    <style>
+      .custom-toast-header {
+        background-color: white;
+ /* Blue background color */
+        color: white; /* Text color */
+        border-bottom: 1px solid #ccc; /* Border color */
+        padding: 10px; /* Add padding if needed */
+      }
+    
+      .custom-toast-header .custom-avatar {
+        width: 20px; /* Adjust the width as needed */
+        height: 20px; /* Adjust the height as needed */
+        background-color: rgb(45, 118, 196);
+        border-radius: 3px; /* Add border-radius for rounded corners if needed */
+      }
+    
+      .custom-toast-body {
+        background-color: white;
+        border: 1px solid #ccc; /* Add the desired color for the outline */
+        padding: 10px; /* Add padding if needed */
+      }
+    </style>
+    
+    <% if(notifSuksesHSEUpload) { %>
+    <div class="toast fade show ms-auto mx-4 animate__animated animate__fadeIn" role="alert" aria-live="assertive" aria-atomic="true" id="notification-toast">
+      <div class="toast-header custom-toast-header animate__animated animate__shakeX">
+        <div class="custom-avatar rounded me-2"></div>
+        <strong class="me-auto text-dark">Notifikasi-</strong>
+        <small class="text-dark"><span id="countdown">6</span> second ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body custom-toast-body animate__animated animate__rubberBand">
+        Upload Data HSE Berhasil!
+      </div>
+    </div>
+    <% } %>
+
+    <% if(notifSuksesPSBUpload) { %>
+    <div class="toast fade show ms-auto mx-4 animate__animated animate__fadeIn" role="alert" aria-live="assertive" aria-atomic="true" id="notification-toast">
+      <div class="toast-header custom-toast-header animate__animated animate__shakeX">
+        <div class="custom-avatar rounded me-2"></div>
+        <strong class="me-auto text-dark">Notifikasi-</strong>
+        <small class="text-dark"><span id="countdown">6</span> second ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body custom-toast-body animate__animated animate__rubberBand">
+        Upload Data PSB Berhasil!
+      </div>
+    </div>
+    <% } %>
+
+    <% if(notifSuksesPBUpload) { %>
+    <div class="toast fade show ms-auto mx-4 animate__animated animate__fadeIn" role="alert" aria-live="assertive" aria-atomic="true" id="notification-toast">
+      <div class="toast-header custom-toast-header animate__animated animate__shakeX">
+        <div class="custom-avatar rounded me-2"></div>
+        <strong class="me-auto text-dark">Notifikasi-</strong>
+        <small class="text-dark"><span id="countdown">6</span> second ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body custom-toast-body animate__animated animate__rubberBand">
+        Upload Data PB Berhasil!
+      </div>
+    </div>
+    <% } %>
+
+    <% if(notifSuksesPAUpload) { %>
+    <div class="toast fade show ms-auto mx-4 animate__animated animate__fadeIn" role="alert" aria-live="assertive" aria-atomic="true" id="notification-toast">
+      <div class="toast-header custom-toast-header animate__animated animate__shakeX">
+        <div class="custom-avatar rounded me-2"></div>
+        <strong class="me-auto text-dark">Notifikasi-</strong>
+        <small class="text-dark"><span id="countdown">6</span> second ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body custom-toast-body animate__animated animate__rubberBand">
+        Upload Data PA Berhasil!
+      </div>
+    </div>
+    <% } %>
+
     <!-- ======= Login Us Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
@@ -605,8 +684,21 @@
               <div class="sent-message">Your message has been sent. Thank you!</div>
             </div>
 
-            <div class="text-center"><button type="submit">Kirim</button></div>
+            <style>
+              /* Gaya untuk tombol dinonaktifkan */
+              button:disabled {
+                background-color: #ccc; /* Warna abu-abu untuk tombol dinonaktifkan */
+                cursor: not-allowed; /* Mengubah kursor menjadi not-allowed saat tombol dinonaktifkan */
+              }
+              </style>
+
+
+            <div class="text-center"><button class="btn-green" type="submit" >Kirim</button></div>
+
+            
           </form>
+          
+
         </div>
 
       </div>
@@ -627,6 +719,47 @@
     });
   </script>
 
+  <!-- JavaScript untuk menangani pengiriman formulir -->
+  <script>
+    function submitForm() {
+      // Pilih formulir berdasarkan ID
+      var form = document.getElementById('paForm');
+      
+      // Periksa jika formulir ditemukan
+      if (form) {
+        // Submit formulir
+        form.submit();
+      }
+    }
+  </script>
+
+
+  <!-- JavaScript untuk memeriksa input dan mengaktifkan/menonaktifkan tombol "Kirim" -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Ambil referensi tombol "Kirim"
+      var kirimButton = document.getElementById('kirimButton');
+  
+      // Ambil referensi semua input
+      var inputs = document.querySelectorAll('#paForm input');
+  
+      // Tambahkan event listener pada setiap input
+      inputs.forEach(function (input) {
+        input.addEventListener('input', updateKirimButton);
+      });
+  
+      // Fungsi untuk memeriksa input dan mengaktifkan/menonaktifkan tombol "Kirim"
+      function updateKirimButton() {
+        // Periksa apakah semua input telah diisi
+        var isAllFilled = Array.from(inputs).every(function (input) {
+          return input.value.trim() !== '';
+        });
+  
+        // Aktifkan/menonaktifkan tombol "Kirim" berdasarkan kondisi input
+        kirimButton.disabled = !isAllFilled;
+      }
+    });
+  </script>
   <script>
     function togglePasswordVisibility() {
     const PINInput = document.getElementById("pin");
@@ -742,6 +875,28 @@
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
+  </script>
+
+  <script>
+    // Countdown logic
+    var countdown = 5;
+    var countdownElement = document.getElementById('countdown');
+
+    function updateCountdown() {
+      countdown -= 1;
+      countdownElement.textContent = countdown;
+
+      if (countdown <= 0) {
+        // Redirect after 5 seconds
+        window.location.href = '/form-pengusulan-data-mitra';
+      } else {
+        // Continue countdown
+        setTimeout(updateCountdown, 1000);
+      }
+    }
+
+    // Start countdown
+    setTimeout(updateCountdown, 1000);
   </script>
 
 

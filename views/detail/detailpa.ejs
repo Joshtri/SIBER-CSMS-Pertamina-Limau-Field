@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Detail HSE</title>
+  <title>Detail PA</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -22,7 +22,7 @@
   <!-- Vendor CSS Files -->
   <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> -->
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
@@ -42,7 +42,7 @@
 
 
   <!-- Bootstrap Icon -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
 
 
 
@@ -61,7 +61,7 @@
   <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
 
   <!-- Toastr -->
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
   <style>
@@ -165,7 +165,6 @@
       }
     </style>
     
-
     <div class="toast fade show ms-auto mx-4 animate__animated animate__fadeIn" role="alert" aria-live="assertive" aria-atomic="true" id="notification-toast">
       <div class="toast-header custom-toast-header animate__animated animate__shakeX">
         <div class="custom-avatar rounded me-2"></div>
@@ -174,7 +173,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body custom-toast-body animate__animated animate__rubberBand">
-        Mitra dengan nama <%= nama_mitra %>
+        Nomor kontrak dengan nomor <%= nomor_kontrak %>
         <% if (status_mitra === "Belum Diproses") { %>
           <strong class="text-warning"><%= status_mitra %></strong>
         <% } else if (status_mitra === "Diterima") { %>
@@ -184,18 +183,16 @@
         <% } %> 
       </div>
     </div>
-
     <!-- ======= Login Us Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
-        
         <div class="section-title">
-          <h2>DETAIL DATA MITRA - HSE PLAN</h2>
+          <h2>DETAIL DATA MITRA - PA</h2>
         </div>
 
         <div class="mb-3">
-            <a href="/data/hse-data/" class="btn btn-sm btn-success"><i class="fa-solid fa-chevron-left fa-beat-fade"></i> Kembali</a>
-            <a href="/data/update-hse/<%= id_hse %>" class="float-end btn btn-sm btn-warning mx-2"><i class="mx-2 fa-solid fa-square-pen fa-beat-fade"></i>Verifikasi Data</a>
+            <a href="/data/pa-data" class="btn btn-sm btn-success"><i class="fa-solid fa-chevron-left fa-beat-fade"></i> Kembali</a>
+            <a href="/data/update-pa/<%= id_pa %>" class="float-end btn btn-sm btn-warning mx-2"><i class="mx-2 fa-solid fa-square-pen fa-beat-fade"></i>Verifikasi Data</a>
         </div>
 
         <div class="col-lg-12  mx-auto d-flex">
@@ -215,37 +212,27 @@
                 
                 <div class="form-group col-md-4">
                     <!-- Dapatkan tanggal_audit dari server atau sumber data lainnya -->
-                    <% const rawDate = tanggal_audit; %>
+                    <% const rawDate = tanggal_penilaian; %>
 
                     <!-- Konversi tanggal menggunakan JavaScript -->
                     <% const formattedDate = new Date(rawDate).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); %>
 
-                    <label for="name">Tanggal Audit</label>
-                    <!-- <span class="form-control" id="tanggal_audit" disabled><%= tanggal_audit %></span> -->
+                    <label for="name">Tanggal Penilaian</label>
+                    <!-- <span class="form-control" id="tanggal_audit" disabled><%= tanggal_penilaian %></span> -->
                     <input type="text" class="form-control" id="tanggal_audit" value="<%= formattedDate  %>" disabled> 
-                    <!-- <p id="tanggal_audit"><%= tanggal_audit %></p> --> 
+                    <!-- <p id="tanggal_audit"><%= tanggal_penilaian %></p> --> 
                 </div>
                 
               </div>
-
               <div class="row">
                 <div class="form-group col-md-4">
                     <label for="name">Nama Pekerjaan</label>
-                    <input type="text" class="form-control" value="<%= nama_pekerjaan %>"  disabled>
+                    <input type="text" class="form-control" value="<%= nama_pekerjaan %>" disabled>
                 </div>
 
-                <div class="form-group col-md-4">
-                    <label for="name">Nama Mitra</label>
-                    <input type="text" class="form-control" value="<%= nama_mitra %>" disabled>
-                </div>
-
-                
               </div>
 
-                <div class="form-group col-md-5">
-                    <label for="name">Lokasi Kerja <span class="fw-bold">(SHU/Regional/Divisi/Department)</span></label>
-                    <input type="text" class="form-control" value="<%= lokasi_kerja %>" disabled> 
-                </div>
+
                 <hr>
                 <h3 class="mt-3">Kelengkapan Berkas</h3>
                 
@@ -359,7 +346,7 @@
                         </button>
                     <% } else if(status_mitra === "Ditolak") { %>
                         <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip">
-                            <i class="fa-solid fa-square-xmark"></i>
+                            <i class="fa-solid fa-check"></i>
                         </button>
                     <% } %>
                 
@@ -411,25 +398,23 @@
   <script src="/assets/js/optionLogin.js"></script>
 
 
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script> -->
   <!-- Vendor JS Files -->
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
   <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
-  
+
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
-  
+
   <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('.custom-tooltip'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
+        return new bootstrap.Tooltip(tooltipTriggerEl)
     });
-    </script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-
-
+  </script>
 
 
 </body>

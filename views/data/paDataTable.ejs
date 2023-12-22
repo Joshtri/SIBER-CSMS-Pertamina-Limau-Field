@@ -181,7 +181,7 @@
           
           <div class="d-flex justify-content-between align-items-center">
             <ol>
-              <li><a href="#" id="menu-dashboard"><i class="fa-solid fa-house mx-1"></i>Dashboard Pertamina</a></li>
+              <li><a href="/dashboard-pertamina"><i class="fa-solid fa-house mx-1"></i>Dashboard Pertamina</a></li>
               <li>Data Mitra</li>
               <li>PA</li>
             </ol>
@@ -205,7 +205,7 @@
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th>No</th>
-                        <th>Nama Kontraktor</th>  <!-- 🧘 --> 
+                        <th>Nama Pekerjaan</th>  <!-- 🧘 --> 
                         <th>Risk Level</th>
                         <th>Tanggal Penilaian</th>
                         <th>Status</th>
@@ -216,7 +216,7 @@
                     <% for(let i = 0; i < dataPA.length; i++) { %>
                         <tr class="text-center">
                             <td><%= i + 1%></td>
-                            <td><%= dataPA[i].nama_kontraktor %></td>
+                            <td><%= dataPA[i].nama_pekerjaan %></td>
                             <td><%= dataPA[i].risk_level %></td>
                             <td><%= dataPA[i].tanggal_penilaian %></td>
                             <td>
@@ -231,7 +231,7 @@
                                   </button>
                               <% } else if(dataPA[i].status_mitra === "Ditolak") { %>
                                   <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip">
-                                      <i class="fa-solid fa-check"></i>
+                                    <i class="fa-solid fa-x fa-beat-fade"></i>
                                   </button>
                               <% } %>
                             </td>
@@ -244,7 +244,7 @@
                                     <span class=""><i class="fa-solid fa-grip-vertical"></i></span>
                                 </a>
 
-                                <a  class="btn btn-sm border-shadow update custom-tooltip" id="set_edit" data-bs-toggle="tooltip" data-bs-title="Verifikasi Data" data-bs-placement="bottom"><i class="fa-solid fa-pen-to-square"></i>
+                                <a href="/data/update-pa/<%= dataPA[i].id_pa %>" class="btn btn-sm border-shadow update custom-tooltip" id="set_edit" data-bs-toggle="tooltip" data-bs-title="Verifikasi Data" data-bs-placement="bottom"><i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                                
                                 <!-- <a class="btn border-shadow delete" href="" >

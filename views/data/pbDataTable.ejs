@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Data Mitra - HSE PLAN</title>
+  <title>Data Mitra - PB</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -181,7 +181,7 @@
           
           <div class="d-flex justify-content-between align-items-center">
             <ol>
-              <li><a href="#" id="menu-dashboard"><i class="fa-solid fa-house mx-1"></i>Dashboard Pertamina</a></li>
+              <li><a href="/dashboard-pertamina"><i class="fa-solid fa-house mx-1"></i>Dashboard Pertamina</a></li>
               <li>Data Mitra</li>
               <li>PB</li>
             </ol>
@@ -231,7 +231,7 @@
                                   </button>
                               <% } else if(dataPB[i].status_mitra === "Ditolak") { %>
                                   <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip">
-                                      <i class="fa-solid fa-check"></i>
+                                    <i class="fa-solid fa-x fa-beat-fade"></i>
                                   </button>
                               <% } %>
                             </td>
@@ -244,7 +244,7 @@
                                     <span class=""><i class="fa-solid fa-grip-vertical"></i></span>
                                 </a>
 
-                                <a  class="btn btn-sm border-shadow update custom-tooltip" id="set_edit" data-bs-toggle="tooltip" data-bs-title="Verifikasi Data" data-bs-placement="bottom"><i class="fa-solid fa-pen-to-square"></i>
+                                <a href="/data/update-pb/<%= dataPB[i].id_pb %>" class="btn btn-sm border-shadow update custom-tooltip" id="set_edit" data-bs-toggle="tooltip" data-bs-title="Verifikasi Data" data-bs-placement="bottom"><i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                                
                                 <!-- <a class="btn border-shadow delete" href="" >

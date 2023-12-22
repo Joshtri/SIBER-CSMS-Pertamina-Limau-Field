@@ -1,23 +1,178 @@
 const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcrypt');
+const util = require('util');
 
 
 const db = require('../utils/database');
+
+
+
+const query = util.promisify(db.query).bind(db);
+
+
+const fetchDataHSE = async () =>{
+    try{
+        const [totalBlmDiprosesHSE,totalDiterimaHSE, totalDitolakHSE] = await Promise.all([
+            query("SELECT SUM(status_mitra = 'Belum Diproses') AS blmDiprosesCountHSE FROM hseplan_table"),
+            query("SELECT SUM(status_mitra = 'Diterima') AS diterimaCountHSE FROM hseplan_table"),
+            query("SELECT SUM(status_mitra = 'Ditolak') AS ditolakCountHSE FROM hseplan_table"),
+            
+        ]);
+
+        const blmDiprosesCountHSE = totalBlmDiprosesHSE[0].blmDiprosesCountHSE;
+        const diterimaCountHSE = totalDiterimaHSE[0].diterimaCountHSE;
+        const ditolakCountHSE = totalDitolakHSE[0].ditolakCountHSE;
+
+        return {
+            blmDiprosesCountHSE,
+            diterimaCountHSE,
+            ditolakCountHSE
+        }
+    }
+
+    catch(err){
+        throw err;
+    }
+}
+
+const fetchDataPSB = async () =>{
+    try{
+        const [totalBlmDiprosesPSB,totalDiterimaPSB, totalDitolakPSB] = await Promise.all([
+            query("SELECT SUM(status_mitra = 'Belum Diproses') AS blmDiprosesCountPSB FROM psb_table"),
+            query("SELECT SUM(status_mitra = 'Diterima') AS diterimaCountPSB FROM psb_table"),
+            query("SELECT SUM(status_mitra = 'Ditolak') AS ditolakCountPSB FROM psb_table"),
+            
+        ]);
+
+        const blmDiprosesCountPSB = totalBlmDiprosesPSB[0].blmDiprosesCountPSB;
+        const diterimaCountPSB = totalDiterimaPSB[0].diterimaCountPSB;
+        const ditolakCountPSB = totalDitolakPSB[0].ditolakCountPSB;
+
+        return {
+            blmDiprosesCountPSB,
+            diterimaCountPSB,
+            ditolakCountPSB
+        }
+    }
+
+    catch(err){
+        throw err;
+    }
+}
+
+const fetchDataPB = async () =>{
+    try{
+        const [totalBlmDiprosesPB,totalDiterimaPB, totalDitolakPB] = await Promise.all([
+            query("SELECT SUM(status_mitra = 'Belum Diproses') AS blmDiprosesCountPB FROM pb_table"),
+            query("SELECT SUM(status_mitra = 'Diterima') AS diterimaCountPB FROM pb_table"),
+            query("SELECT SUM(status_mitra = 'Ditolak') AS ditolakCountPB FROM pb_table"),
+            
+        ]);
+
+        const blmDiprosesCountPB = totalBlmDiprosesPB[0].blmDiprosesCountPB;
+        const diterimaCountPB = totalDiterimaPB[0].diterimaCountPB;
+        const ditolakCountPB = totalDitolakPB[0].ditolakCountPB;
+
+        return {
+            blmDiprosesCountPB,
+            diterimaCountPB,
+            ditolakCountPB
+        }
+    }
+
+    catch(err){
+        throw err;
+    }
+}
+
+const fetchDataPA = async () =>{
+    try{
+        const [totalBlmDiprosesPA,totalDiterimaPA, totalDitolakPA] = await Promise.all([
+            query("SELECT SUM(status_mitra = 'Belum Diproses') AS blmDiprosesCountPA FROM pa_table"),
+            query("SELECT SUM(status_mitra = 'Diterima') AS diterimaCountPA FROM pa_table"),
+            query("SELECT SUM(status_mitra = 'Ditolak') AS ditolakCountPA FROM pa_table"),
+            
+        ]);
+
+        const blmDiprosesCountPA = totalBlmDiprosesPA[0].blmDiprosesCountPA;
+        const diterimaCountPA = totalDiterimaPA[0].diterimaCountPA;
+        const ditolakCountPA = totalDitolakPA[0].ditolakCountPA;
+
+        return {
+            blmDiprosesCountPA,
+            diterimaCountPA,
+            ditolakCountPA
+        }
+    }
+
+    catch(err){
+        throw err;
+    }
+}
 
 exports.berandaWeb = (req, res) => {
     const berandaTitle = "Beranda | SIBER Pertamina Limau Field"; // Gantilah dengan data atau variabel yang sesuai
 
     res.render('index',{
         berandaTitle
-    })
+    });
 }
 
-exports.berandaAdmin = (req,res) =>{
+exports.berandaAdmin = async (req,res) =>{
     const DashboardAdminTitle = "Dashboard Pertamina";
 
+    const {
+        blmDiprosesCountHSE,
+        diterimaCountHSE,
+        ditolakCountHSE
+    } = await fetchDataHSE();
+
+    const {
+        blmDiprosesCountPSB,
+        diterimaCountPSB,
+        ditolakCountPSB
+
+    } = await fetchDataPSB();
+
+    const {
+        blmDiprosesCountPB,
+        diterimaCountPB,
+        ditolakCountPB
+
+    } = await fetchDataPB();
+
+    const {
+        blmDiprosesCountPA,
+        diterimaCountPA,
+        ditolakCountPA
+
+    } = await fetchDataPA();
+
     res.render('dashboardAdmin',{
-        DashboardAdminTitle
+        DashboardAdminTitle,
+
+        //HSE
+        blmDiprosesCountHSE,
+        diterimaCountHSE,
+        ditolakCountHSE,
+
+        //PSB
+
+        blmDiprosesCountPSB,
+        diterimaCountPSB,
+        ditolakCountPSB,
+
+        //PB
+        blmDiprosesCountPB,
+        diterimaCountPB,
+        ditolakCountPB,
+
+        //PA
+        blmDiprosesCountPA,
+        diterimaCountPA,
+        ditolakCountPA
+
     });
 
 }
