@@ -37,6 +37,7 @@
   <!-- Table CSS Costum -->
   <!-- <link href="/assets/css/table/tableStyling.css" rel="stylesheet"> -->
   <link href="/assets/css/table/searchboxStyle.css" rel="stylesheet">
+  <link href="/assets/css/table/paginationbuttonStyle.css" rel="stylesheet">
 
   
 
@@ -215,6 +216,8 @@
                 <tbody>
                     <% for(let i = 0; i < dataHse.length; i++) { %>
                         <tr class="text-center">
+                                                <!-- Add this div to display a message when no data is found -->
+
                             <td><%= i + 1%></td>
                             <td><%= dataHse[i].nama_mitra %></td>
                             <td><%= dataHse[i].risk_level %></td>
@@ -252,9 +255,17 @@
                                 </a> -->
                             </td>
                         </tr>
+                        
                         <% } %>
                 </tbody>
+                
             </table>
+            <div id="no-data-message" class="alert alert-danger rounded mt-3 text-center" style="display: none;">
+              Data tidak ditemukan<i class="mx-1 fs-5 fa-brands fa-searchengin fa-bounce"></i>
+            </div>
+            <div class="float-end me-5">
+              <div id="pagination-buttons"></div>
+            </div>
 
         </div>
       </section>
@@ -468,6 +479,9 @@
   </script>
     
   <!-- <script src="assets/js/rssNews.js"></script> -->
+
+  <script src="/assets/js/liveSearchBar.js"></script>
+  <script src="/assets/js/table/paginationTable.js"></script>
 </body>
 
 </html>

@@ -537,7 +537,8 @@ exports.updateHSEdata = (req,res)=>{
         lokasi_kerja,
         status_mitra,
         files: results[0], 
-        results
+        results,
+        notifSuksesHSEUpdate : false
       });
      console.log(results);
     }
@@ -583,7 +584,8 @@ exports.updatePSBdata = (req,res)=>{
         tanggal_penilaian,
         status_mitra,
         files: results[0], 
-        results
+        results,
+        notifSuksesPSBUpdate : false
       });
      console.log(results);
     }
@@ -627,7 +629,8 @@ exports.updatePAdata = (req,res)=>{
         tanggal_penilaian,
         status_mitra,
         files: results[0], 
-        results
+        results,
+        notifSuksesPAUpdate : false
       });
      console.log(results);
     }
@@ -674,7 +677,8 @@ exports.updatePBdata = (req,res)=>{
         tanggal_penilaian,
         status_mitra,
         files: results[0], 
-        results
+        results,
+        notifSuksesPBUpdate : false
       });
      console.log(results);
     }
@@ -713,17 +717,14 @@ exports.postUpdateHSEPdata = (req, res) => {
       console.error('Terjadi kesalahan saat memperbarui data:', err);
       res.status(500).send('Kesalahan Server Internal');
     } else {
-      // notifSuksesHSEUpload
-      res.render('update_hse',{
-        notifSuksesHSEUpload : true
-      })
-      
-      // console.log('Update Berhasil:', results); // Tambahkan ini untuk melihat hasil query
-      // res.send('Update Berhasil :)');
-      // console.log('ID HSE yang Diterima:', id_hse);
-      // console.log('Data yang Diterima:', req.body);
+      // Kirim skrip JavaScript sebagai respons
+      const script = `
+        <script>
+          alert('Data berhasil diperbarui!');
+          window.location.href = '/data/update-hse/${id_hse}'; // Ganti dengan URL halaman Anda
+        </script>`;
+      res.send(script);
 
-      // console.log('Query SQL:', sqlUpdate, ' dengan Nilai:', values);
 
     }
   });
@@ -742,12 +743,21 @@ exports.postUpdatePSBdata = (req,res)=>{
       console.error('Terjadi kesalahan saat memperbarui data:', err);
       res.status(500).send('Kesalahan Server Internal');
     } else {
-      console.log('Update Berhasil:', results); // Tambahkan ini untuk melihat hasil query
-      res.send('Update Berhasil :)');
-      console.log('ID HSE yang Diterima:', id_psb);
-      console.log('Data yang Diterima:', req.body);
+      // Kirim skrip JavaScript sebagai respons
+      const script = `
+        <script>
+          alert('Data berhasil diperbarui!');
+          window.location.href = '/data/update-psb/${id_psb}'; // Ganti dengan URL halaman Anda
+        </script>`;
+      res.send(script);
 
-      console.log('Query SQL:', sqlUpdate, ' dengan Nilai:', values);
+
+      // console.log('Update Berhasil:', results); // Tambahkan ini untuk melihat hasil query
+      // res.send('Update Berhasil :)');
+      // console.log('ID HSE yang Diterima:', id_psb);
+      // console.log('Data yang Diterima:', req.body);
+
+      // console.log('Query SQL:', sqlUpdate, ' dengan Nilai:', values);
 
     }
   });
@@ -766,12 +776,13 @@ exports.postUpdatePAdata = (req,res)=>{
       console.error('Terjadi kesalahan saat memperbarui data:', err);
       res.status(500).send('Kesalahan Server Internal');
     } else {
-      console.log('Update Berhasil:', results); // Tambahkan ini untuk melihat hasil query
-      res.send('Update Berhasil :)');
-      console.log('ID HSE yang Diterima:', id_pa);
-      console.log('Data yang Diterima:', req.body);
-
-      console.log('Query SQL:', sqlUpdate, ' dengan Nilai:', values);
+      // Kirim skrip JavaScript sebagai respons
+      const script = `
+        <script>
+          alert('Data berhasil diperbarui!');
+          window.location.href = '/data/update-pa/${id_pa}'; 
+        </script>`;
+      res.send(script);
 
     }
   });
@@ -793,12 +804,19 @@ exports.postUpdatePBdata = (req,res)=>{
       console.error('Terjadi kesalahan saat memperbarui data:', err);
       res.status(500).send('Kesalahan Server Internal');
     } else {
-      console.log('Update Berhasil:', results); // Tambahkan ini untuk melihat hasil query
-      res.send('Update Berhasil :)');
-      console.log('ID HSE yang Diterima:', id_pb);
-      console.log('Data yang Diterima:', req.body);
+      // Kirim skrip JavaScript sebagai respons
+      const script = `
+        <script>
+          alert('Data berhasil diperbarui!');
+          window.location.href = '/data/update-pb/${id_pb}'; // Ganti dengan URL halaman Anda
+        </script>`;
+      res.send(script);
+      // console.log('Update Berhasil:', results); // Tambahkan ini untuk melihat hasil query
+      // res.send('Update Berhasil :)');
+      // console.log('ID HSE yang Diterima:', id_pb);
+      // console.log('Data yang Diterima:', req.body);
 
-      console.log('Query SQL:', sqlUpdate, ' dengan Nilai:', values);
+      // console.log('Query SQL:', sqlUpdate, ' dengan Nilai:', values);
 
     }
   });

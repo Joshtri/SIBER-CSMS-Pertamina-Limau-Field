@@ -12,6 +12,26 @@ const app = express();
 const PORT = 3003;
 
 
+// menggunakan express-session
+app.use(
+  session({
+    secret: "secretprogramming",
+    resave: false,
+    // secure: true,
+    saveUninitialized: false,
+
+
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 1 hari
+      httpOnly: true,
+      sameSite: 'Lax', // Sesuaikan dengan kebutuhan Anda
+      secure: true, // Hanya dikirimkan melalui HTTPS
+    },
+    
+  })
+);
+
+
 database.connect();
 
 app.use(morgan('tiny'));
@@ -33,6 +53,9 @@ app.use("/", routerBeranda, routerMitra);
 
 // Menyediakan rute statis untuk file PDF di direktori 'uploads'
 app.use('/data/detail-hse/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/data/detail-psb/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/data/detail-pb/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/data/detail-pa/uploads', express.static(path.join(__dirname, 'uploads')));
 app.set("view engine", "ejs");
 
 

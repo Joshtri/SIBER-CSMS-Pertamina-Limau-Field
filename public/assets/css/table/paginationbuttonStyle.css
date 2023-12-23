@@ -13,6 +13,7 @@
 }
 
 #pagination-buttons button.active {
-    background-color: #4c5eaf;
+    /* background-color: #32599C; */
+    background-color: #32599C;
     color: white;
 }
