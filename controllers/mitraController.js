@@ -565,9 +565,14 @@ exports.readPBData = (req, res)=>{
 
 //view pa Table 
 exports.readPAData = (req, res)=>{
-  const sqlRead = "SELECT * FROM pa_table";
+  // Periksa peran pengguna yang masuk
+  const userRole = req.session.userData ? req.session.userData.username : null;
+  
 
-  db.query(sqlRead, (err,readResults)=>{
+  if(userRole === 'HSSE') {
+    
+    const sqlHSSERead = "SELECT * FROM pa_table";
+      db.query(sqlHSSERead, (err,readResults)=>{
 
     if(err){
       throw err; 
@@ -580,6 +585,24 @@ exports.readPAData = (req, res)=>{
       console.log(readResults);
     }
   });
+  }
+    else if(userRole === 'ICT') {
+    
+    const sqlICTRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 1";
+      db.query(sqlRICTRead, (err,readResults)=>{
+
+    if(err){
+      throw err; 
+    }
+
+    else if(!err){
+      res.render('paDataTable',{
+        dataPA : readResults
+      });
+      console.log(readResults);
+    }
+  });
+    }
 }
 
 
