@@ -150,7 +150,16 @@
           <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li> -->
           <li class="dropdown"><a href="#"><span>Data</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a  id="menu-data-mitra" href="#">Data Mitra</a></li>
+              <li><a  href="/dashboard-pertamina">Data Mitra</a></li>
+              <!-- <li><a href="#creator">Creator</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li> -->
+            </ul>
+          </li>
+
+          <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/logout">Log Out</a></li>
               <!-- <li><a href="#creator">Creator</a></li>
               <li><a href="#">Drop Down 3</a></li>
               <li><a href="#">Drop Down 4</a></li> -->
@@ -217,6 +226,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                  <% if (dataPA && dataPA.length > 0) { %>
                     <% for(let i = 0; i < dataPA.length; i++) { %>
                         <tr class="text-center">
                             <td><%= i + 1%></td>
@@ -257,6 +267,15 @@
                             </td>
                         </tr>
                         <% } %>
+                      <% } else { %>
+                        <tr>
+                            <td colspan="6">
+                                <div id="no-data-message" class="alert alert-danger rounded mt-3 text-center">
+                                      'Data Kosong'
+                                </div>
+                            </td>
+                        </tr>
+                    <% } %>
                 </tbody>
             </table>
             <div id="no-data-message" class="alert alert-danger rounded mt-3 text-center" style="display: none;">
@@ -356,6 +375,24 @@
             var formattedDate = tanggalAudit.toLocaleDateString("id-ID", options);
             element.textContent = formattedDate;
         });
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Menambahkan event listener pada elemen dengan ID "menu-data-mitra"
+      var menuDataMitra = document.getElementById("menu-data-mitra");
+      menuDataMitra.addEventListener("click", function(event) {
+        // Mengganti URL atau menampilkan tampilan data sesuai dengan kebutuhan
+        // Misalnya, menggunakan window.location.href atau menampilkan elemen dengan ID "menu-data-mitra"
+        // Contoh menggunakan window.location.href:
+        window.location.href = "/tampilan-data-mitra";
+        // Contoh menampilkan elemen dengan ID "tampilan-data-mitra" (pastikan elemen ini sudah ada di HTML):
+        // document.getElementById("tampilan-data-mitra").style.display = "block";
+        
+        // Mencegah aksi default dari link
+        event.preventDefault();
+      });
     });
   </script>
 
