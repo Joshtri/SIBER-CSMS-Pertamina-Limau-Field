@@ -214,6 +214,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                <% if (dataPB && dataPB.length > 0) { %>
                     <% for(let i = 0; i < dataPB.length; i++) { %>
                         <tr class="text-center">
                             <td><%= i + 1%></td>
@@ -254,6 +255,15 @@
                             </td>
                         </tr>
                         <% } %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6">
+                            <div id="no-data-message" class="alert alert-danger rounded mt-3 text-center">
+                                  'Data Kosong'
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
                 </tbody>
             </table>
             <div id="no-data-message" class="alert alert-danger rounded mt-3 text-center" style="display: none;">
