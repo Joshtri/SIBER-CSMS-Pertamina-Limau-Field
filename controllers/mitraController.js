@@ -589,7 +589,7 @@ exports.readPAData = (req, res)=>{
     else if(userRole === 'ICT') {
     
     const sqlICTRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 1";
-      db.query(sqlRICTRead, (err,readResults)=>{
+      db.query(sqlICTRead, (err,readResults)=>{
 
     if(err){
       throw err; 
@@ -603,6 +603,40 @@ exports.readPAData = (req, res)=>{
     }
   });
     }
+	    else if(userRole === 'WIWS') {
+    
+    const sqlWIWSRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 2";
+      db.query(sqlWIWSRead, (err,readResults)=>{
+
+    if(err){
+      throw err; 
+    }
+
+    else if(!err){
+      res.render('paDataTable',{
+        dataPA : readResults
+      });
+      console.log(readResults);
+    }
+  });
+			}
+		    else if(userRole === 'PE') {
+    
+    const sqlPERead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 3";
+      db.query(sqlPERead, (err,readResults)=>{
+
+    if(err){
+      throw err; 
+    }
+
+    else if(!err){
+      res.render('paDataTable',{
+        dataPA : readResults
+      });
+      console.log(readResults);
+    }
+  });
+				}
 }
 
 
