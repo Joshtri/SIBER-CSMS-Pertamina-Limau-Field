@@ -12,24 +12,30 @@ const app = express();
 const PORT = 3003;
 
 
-// menggunakan express-session
-app.use(
-  session({
-    secret: "secretprogramming",
-    resave: false,
-    // secure: true,
-    saveUninitialized: false,
+// // menggunakan express-session
+// app.use(
+//   session({
+//     secret: "secretprogramming",
+//     resave: false,
+//     // secure: true,
+//     saveUninitialized: false,
 
 
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24, // 1 hari
-      httpOnly: true,
-      sameSite: 'Lax', // Sesuaikan dengan kebutuhan Anda
-      secure: true, // Hanya dikirimkan melalui HTTPS
-    },
+//     cookie: {
+//       maxAge: 1000 * 60 * 60 * 24, // 1 hari
+//       // httpOnly: true,
+//       // sameSite: 'Lax', // Sesuaikan dengan kebutuhan Anda
+//       secure: true, // Hanya dikirimkan melalui HTTPS
+//     },
     
-  })
-);
+//   })
+// );
+
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+}));
 
 
 database.connect();

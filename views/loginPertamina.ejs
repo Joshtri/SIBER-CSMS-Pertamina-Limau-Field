@@ -152,12 +152,12 @@
         
         <form action="/login-divisi" method="POST">
           <div class=" mx-auto col-7 mt-1"> 
-            <div class="form-floating d-flex ">
-              <input type="text" class="hidden form-control" name="username" value="pertamina" placeholder="df">
-            </div>
+            <!-- <div class="form-floating d-flex ">
+              <input type="text" class="form-control" name="username" value="pertamina" placeholder="df">
+            </div> -->
 
             <div class="form-floating d-flex">
-              <input type="password" class="form-control" id="pin" name="password" oninput="checkPINLength()" maxlength="11" placeholder="Password">
+              <input type="password" class="form-control" id="password" name="password" oninput="checkPINLength()" maxlength="11" placeholder="Password">
               <label for="floatingPassword">PIN</label>
               <button type="button" class="btn btn-outline-light" onclick="togglePasswordVisibility()"><i class="text-dark bi bi-eye-slash"></i></button>
             </div>

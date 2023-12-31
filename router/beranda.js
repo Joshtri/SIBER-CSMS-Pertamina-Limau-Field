@@ -4,6 +4,8 @@ const router = express.Router();
 const berandaController = require('../controllers/berandaController');
 const mitraController = require("../controllers/mitraController");
 
+const {isLoggedIn} = require('../auth/protect');
+
 /*
     *Catatan*
 
@@ -20,10 +22,13 @@ const mitraController = require("../controllers/mitraController");
 router.get('/', berandaController.berandaWeb);
 
 //router-beranda admin.
-router.get('/dashboard-pertamina', berandaController.berandaAdmin);
+router.get('/dashboard-pertamina', berandaController.berandaAdmin, isLoggedIn);
 
 //router-login admin.
 router.get('/login-pertamina', berandaController.loginPertamina);
+
+//router logout
+router.get('/logout', berandaController.logOutAccount);
 
 
 //router view -CREATE PIN PERTAMINA.

@@ -167,14 +167,14 @@
     </style>
 
     <div class="toast fade show ms-auto mx-4 animate__animated animate__fadeIn" role="alert" aria-live="assertive" aria-atomic="true" id="notification-toast">
-      <div class="toast-header custom-toast-header animate__animated animate__bounceInRight">
+      <div class="toast-header custom-toast-header animate__animated animate__shakeX">
         <div class="custom-avatar rounded me-2"></div>
         <strong class="me-auto text-dark">Notifikasi</strong>
         <small class="text-dark"><span id="countdown">60</span> second ago</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
-      <div class="toast-body custom-toast-body animate__animated animate__fadeInUp">
-        Mitra dengan nama <%= nama_mitra %>
+      <div class="toast-body custom-toast-body animate__animated animate__rubberBand">
+        Nomor kontrak dengan nomor <%= nomor_kontrak %>
         <% if (status_mitra === "Belum Diproses") { %>
           <strong class="text-warning"><%= status_mitra %></strong>
         <% } else if (status_mitra === "Diterima") { %>

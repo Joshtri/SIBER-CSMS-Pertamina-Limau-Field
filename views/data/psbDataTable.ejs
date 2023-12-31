@@ -202,63 +202,67 @@
         
         <div class="container mt-1">
 
-            <table class="table table-sm table-hover" id="data-table-view">
-                <thead class="thead-dark">
-                    <tr class="text-center">
-                        <th>No</th>
-                        <th>Nama Kontraktor</th>  <!-- 🧘 --> 
-                        <th>Risk Level</th>
-                        <th>Tanggal Penilaian</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for(let i = 0; i < dataPSB.length; i++) { %>
+          <table class="table table-sm table-hover" id="data-table-view">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th>No</th>
+                    <th>Nama Kontraktor</th>
+                    <th>Risk Level</th>
+                    <th>Tanggal Penilaian</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (dataPSB && dataPSB.length > 0) { %>
+                    <% for (let i = 0; i < dataPSB.length; i++) { %>
                         <tr class="text-center">
-                            <td><%= i + 1%></td>
+                            <td><%= i + 1 %></td>
                             <td><%= dataPSB[i].nama_kontraktor %></td>
                             <td><%= dataPSB[i].risk_level %></td>
                             <td><%= dataPSB[i].tanggal_penilaian %></td>
                             <td>
-                              <% if (dataPSB[i].status_mitra === "Belum Diproses") { %>
-                                <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
-                                    <i class="fa-solid fa-spinner fa-spin"></i>
-                                </button>
-                                
-                              <% }else if (dataPSB[i].status_mitra === "Diterima") { %>
-                                  <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip">
-                                      <i class="fa-solid fa-check"></i>
-                                  </button>
-                              <% } else if(dataPSB[i].status_mitra === "Ditolak") { %>
-                                  <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip">
-                                    <i class="fa-solid fa-x fa-beat-fade"></i>
-                                  </button>
-                              <% } %>
+                                <% if (dataPSB[i].status_mitra === "Belum Diproses") { %>
+                                    <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
+                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                    </button>
+    
+                                <% } else if (dataPSB[i].status_mitra === "Diterima") { %>
+                                    <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip">
+                                        <i class="fa-solid fa-check"></i>
+                                    </button>
+                                <% } else if (dataPSB[i].status_mitra === "Ditolak") { %>
+                                    <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip">
+                                        <i class="fa-solid fa-x fa-beat-fade"></i>
+                                    </button>
+                                <% } %>
                             </td>
-                            <!-- <td><button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip"><i class="fa-solid fa-square-xmark"></i></button></td> -->
-                            
-                            <!-- <td><button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip"><i class="fa-solid fa-square-check"></i></button></td> -->
-                            
                             <td>
-                                <a href="/data/detail-psb/<%= dataPSB[i].id_psb %>"class="btn border-shadow custom-tooltip" data-bs-toggle="tooltip" data-bs-title="Detail Data" data-bs-placement="bottom">
+                                <a href="/data/detail-psb/<%= dataPSB[i].id_psb %>" class="btn border-shadow custom-tooltip" data-bs-toggle="tooltip" data-bs-title="Detail Data" data-bs-placement="bottom">
                                     <span class=""><i class="fa-solid fa-grip-vertical"></i></span>
                                 </a>
-
+    
                                 <a href="/data/update-psb/<%= dataPSB[i].id_psb %>" class="btn btn-sm border-shadow update custom-tooltip" id="set_edit" data-bs-toggle="tooltip" data-bs-title="Verifikasi Data" data-bs-placement="bottom"><i class="fa-solid fa-pen-to-square"></i>
                                 </a>
-                               
-                                <!-- <a class="btn border-shadow delete" href="" >
-                                    <span class="text-gradient"><i class="bi bi-trash2-fill"></i></span>
-                                </a> -->
                             </td>
                         </tr>
-                        <% } %>
-                </tbody>
-            </table>
+                    <% } %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6">
+                            <div id="no-data-message" class="alert alert-danger rounded mt-3 text-center">
+                                  'Data Kosong'
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+
             <div id="no-data-message" class="alert alert-danger rounded mt-3 text-center" style="display: none;">
               Data tidak ditemukan<i class="mx-1 fs-5 fa-brands fa-searchengin fa-bounce"></i>
             </div>
+
             <div class="float-end me-5">
               <div id="pagination-buttons"></div>
           </div>

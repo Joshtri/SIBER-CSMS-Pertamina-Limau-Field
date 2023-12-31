@@ -148,6 +148,15 @@
               <li><a href="#">Drop Down 4</a></li> -->
             </ul>
           </li>
+
+          <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/logout">Log Out</a></li>
+              <!-- <li><a href="#creator">Creator</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li> -->
+            </ul>
+          </li>
           <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
           <!-- <li><a class="getstarted scrollto" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Log Out</a></li> -->
           
@@ -169,8 +178,8 @@
         <div class="container">
 
           <div class="d-flex justify-content-between align-items-center">
-            <h2 class="fw-bold">Dashboard</h2>
-            
+            <h2 class="fw-bold">Dashboard - Fungsi <%= userData.username %> </h2>        
+     
           </div>
           <p><span class="fw-bold text-uner">Selamat Datang di</span> Sistem Informasi Verifikasi Berkas CSMS Pertaminau Limau Field</p>
           <div class="d-flex justify-content-between align-items-center">
@@ -263,7 +272,7 @@
         <div class="container mt-5">
           <div class="row">
             <!-- <h3 class="">Ikhtisar Data</h3> -->
-            
+            <% if (userData.username === 'HSSE') { %>
             <div class="col-3">
               <div class="portfolio-info">
               <h5>HSE PLAN :</h5>
@@ -289,7 +298,10 @@
               </div>
 
             </div>
+            <% } %>
 
+            <!-- Tampilkan kotak PSB, PB, dan PA untuk role ICT -->
+            <% if (userData.username === 'ICT' || userData.username === 'WIWS' || userData.username === 'PE' || userData.username === 'RAM' || userData.username === 'HSSE' || userData.username === 'PRODUKSI' || userData.username === 'SCM') { %>
             <div class="col-3">
               <div class="portfolio-info">
               <h5>PSB :</h5>
@@ -367,6 +379,7 @@
                 </div>
               </div>
             </div>
+            <% } %>
 
           </div>
         </div>

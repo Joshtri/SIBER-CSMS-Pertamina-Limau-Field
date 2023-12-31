@@ -17,15 +17,54 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+
+// const readNamaFungsi = (req,res)=>{
+//   const sqlRead = "SELECT pertamina_divisi.id_verifikator, pertamina_divisi.username, pertamina_divisi.password, divisi_pertamina.nama_divisi FROM pertamina_divisi JOIN divisi_pertamina ON pertamina_divisi.divisi = divisi_pertamina.id_divisi";
+
+//   db.query(sqlRead, (err,readResults)=>{
+
+//     if(err){
+//       throw err; 
+//     }
+
+//     else if(!err){
+//       res.render('formMitra',{
+//         fungsi_divisi : readResults
+//       });
+//       // console.log(readResults);
+//     }
+//   });
+// }
+
 //get view upload data mitra
 exports.formMitra = (req,res)=>{
-    res.render('formMitra',{
-      notifSuksesHSEUpload : false,
-      notifSuksesPSBUpload : false,
-      notifSuksesPBUpload : false,
-      notifSuksesPAUpload : false,
+
+  const sqlRead = "SELECT * FROM fungsi_pertamina";
+
+  db.query(sqlRead, (err,readResults)=>{
+
+    if(err){
+      throw err; 
+    }
+
+    else if(!err){
+      res.render('formMitra',{
+        fungsi_pertamina : readResults,
+        notifSuksesHSEUpload : false,
+        notifSuksesPSBUpload : false,
+        notifSuksesPBUpload : false,
+        notifSuksesPAUpload : false,
+      });
+      // console.log(readResults);
+    }
+  });
+    // res.render('formMitra',{
+    //   notifSuksesHSEUpload : false,
+    //   notifSuksesPSBUpload : false,
+    //   notifSuksesPBUpload : false,
+    //   notifSuksesPAUpload : false,
       
-    })
+    // })
 }
 
 
@@ -83,20 +122,19 @@ exports.postFormHSEPlan = (req,res)=>{
 };
 
 
-exports.postPSBForm = (req,res)=>{
-        
-    //*field mitra.
-    const mitraPSBFields = {
-      risk_assessment_id : req.body.risk_assessment_id,
-      risk_level : req.body.risk_level,
-      nomor_kontrak : req.body.nomor_kontrak,
-      nama_pekerjaan : req.body.nama_pekerjaan,
-      nama_kontraktor : req.body.nama_kontraktor,
-      tanggal_penilaian : req.body.tanggal_penilaian,
+exports.postPSBForm = (req, res) => {
+  // *field mitra.
+  const mitraPSBFields = {
+      risk_assessment_id: req.body.risk_assessment_id,
+      risk_level: req.body.risk_level,
+      nomor_kontrak: req.body.nomor_kontrak,
+      nama_pekerjaan: req.body.nama_pekerjaan,
+      nama_kontraktor: req.body.nama_kontraktor,
+      tanggal_penilaian: req.body.tanggal_penilaian,
       // tempat_penilaian : req.body.tempat_penilaian,
+      fungsi_dituju2: req.body.fungsi_dituju2,
 
- 
-      //file uploads.
+      // file uploads.
       file1: req.files[0].filename,
       file2: req.files[1].filename,
       file3: req.files[2].filename,
@@ -105,23 +143,31 @@ exports.postPSBForm = (req,res)=>{
       file6: req.files[5].filename,
       file7: req.files[6].filename,
       file8: req.files[7].filename,
-    };
+  };
 
-    const sql = 'INSERT INTO psb_table SET ?'
-    db.query(sql,mitraPSBFields,(err,results)=>{
-      if(err){
-        throw err;
+  const insertSQL = 'INSERT INTO psb_table SET ?';
+  db.query(insertSQL, mitraPSBFields, (err, results) => {
+      if (err) {
+          throw err;
+      } else if (!err) {
+          // Fetch fungsi_pertamina separately
+          const selectSQL = 'SELECT * FROM fungsi_pertamina';
+          db.query(selectSQL, (err, fungsi_pertamina) => {
+              if (err) {
+                  throw err;
+              }
+              res.render('formMitra', {
+                  fungsi_pertamina: fungsi_pertamina,
+                  notifSuksesPSBUpload: true,
+                  notifSuksesHSEUpload: false,
+                  notifSuksesPBUpload: false,
+                  notifSuksesPAUpload: false,
+              });
+          });
       }
-      else if(!err){
-        res.render('formMitra',{
-          notifSuksesPSBUpload : true,
-          notifSuksesHSEUpload : false,
-          notifSuksesPBUpload : false,
-          notifSuksesPAUpload : false,
-        });
-      }
-    });
-}
+  });
+};
+
 
 
 exports.postPBForm = (req,res)=>{
@@ -134,6 +180,7 @@ exports.postPBForm = (req,res)=>{
       nomor_kontrak : req.body.nomor_kontrak ,
       nama_kontraktor : req.body.nama_kontraktor ,
       tanggal_penilaian : req.body.tanggal_penilaian,
+      fungsi_dituju2: req.body.fungsi_dituju2,
 
       //file uploads.
       file1: req.files[0].filename,
@@ -153,9 +200,20 @@ exports.postPBForm = (req,res)=>{
         throw err;
       }
       else if(!err){
-        res.render('formMitra',{
-          notifSuksesPBUpload : true
-        });
+          // Fetch fungsi_pertamina separately
+          const selectSQL = 'SELECT * FROM fungsi_pertamina';
+          db.query(selectSQL, (err, fungsi_pertamina) => {
+              if (err) {
+                  throw err;
+              }
+              res.render('formMitra', {
+                  fungsi_pertamina: fungsi_pertamina,
+                  notifSuksesPSBUpload: false,
+                  notifSuksesHSEUpload: false,
+                  notifSuksesPBUpload: true,
+                  notifSuksesPAUpload: false,
+              });
+          });
       }
     });
 }
@@ -169,6 +227,7 @@ exports.postPAForm = (req,res)=>{
       nomor_kontrak : req.body.nomor_kontrak,
       nama_pekerjaan : req.body.nama_pekerjaan,
       tanggal_penilaian : req.body.tanggal_penilaian,
+      fungsi_dituju2: req.body.fungsi_dituju2,
 
       //file uploads.
       file1: req.files[0].filename,
@@ -187,16 +246,20 @@ exports.postPAForm = (req,res)=>{
         throw err;
       }
       else if(!err){
-        //* next action.
-
-        res.render('formMitra',{
-          notifSuksesPAUpload : true,
-          notifSuksesHSEUpload : false,
-          notifSuksesPBUpload : false,
-          notifSuksesPSBUpload : false,
-        });
-        
-
+          // Fetch fungsi_pertamina separately
+          const selectSQL = 'SELECT * FROM fungsi_pertamina';
+          db.query(selectSQL, (err, fungsi_pertamina) => {
+              if (err) {
+                  throw err;
+              }
+              res.render('formMitra', {
+                  fungsi_pertamina: fungsi_pertamina,
+                  notifSuksesPSBUpload: false,
+                  notifSuksesHSEUpload: false,
+                  notifSuksesPBUpload: false,
+                  notifSuksesPAUpload: true,
+              });
+          });
       }
     });
 }
@@ -223,42 +286,281 @@ exports.readHSEData = (req, res)=>{
 }
 
 //view psb Table 
-exports.readPSBData = (req, res)=>{
-  const sqlRead = "SELECT * FROM psb_table";
+// exports.readPSBData = (req, res)=>{
+//   const sqlRead = "SELECT * FROM psb_table";
 
-  db.query(sqlRead, (err,readResults)=>{
+//   db.query(sqlRead, (err,readResults)=>{
 
-    if(err){
-      throw err; 
-    }
+//     if(err){
+//       throw err; 
+//     }
 
-    else if(!err){
-      res.render('psbDataTable',{
-        dataPSB : readResults
+//     else if(!err){
+//       res.render('psbDataTable',{
+//         dataPSB : readResults
+//       });
+//       console.log(readResults);
+//     }
+//   });
+// }
+
+// view psb Table
+exports.readPSBData = (req, res) => {
+  // Periksa peran pengguna yang masuk
+  const userRole = req.session.userData ? req.session.userData.username : null;
+
+  // Hanya menampilkan data jika peran pengguna adalah 'HSSE'
+  if (userRole === 'HSSE') {
+      const sqlHSSERead = "SELECT * FROM psb_table";
+
+      db.query(sqlHSSERead, (err, readResults) => {
+          if (err) {
+              throw err;
+          } else if (!err) {
+              res.render('psbDataTable', {
+                  dataPSB: readResults
+              });
+
+          }
       });
-      console.log(readResults);
-    }
-  });
-}
+  }
+
+  // Hanya menampilkan data jika peran pengguna adalah 'ICT'
+  else if (userRole === 'ICT') {
+      const sqlHSSERead = "SELECT * FROM psb_table WHERE fungsi_dituju2 = 1";
+
+      db.query(sqlHSSERead, (err, readResults) => {
+          if (err) {
+              throw err;
+          } else if (!err) {
+              res.render('psbDataTable', {
+                  dataPSB: readResults
+              });
+
+          }
+      });
+  }
+
+  // Hanya menampilkan data jika peran pengguna adalah 'WIWS'
+  else if (userRole === 'WIWS') {
+      const sqlWIWSRead = "SELECT * FROM psb_table WHERE fungsi_dituju2 = 2";
+
+      db.query(sqlWIWSRead, (err, readResults) => {
+          if (err) {
+              throw err;
+          } else if (!err) {
+              res.render('psbDataTable', {
+                  dataPSB: readResults
+              });
+
+          }
+      });
+  } 
+
+  // Hanya menampilkan data jika peran pengguna adalah 'WIWS'
+  else if (userRole === 'PE') {
+      const sqlPERead = "SELECT * FROM psb_table WHERE fungsi_dituju2 = 3";
+
+      db.query(sqlPERead, (err, readResults) => {
+          if (err) {
+              throw err;
+          } else if (!err) {
+              res.render('psbDataTable', {
+                  dataPSB: readResults
+              });
+
+          }
+      });
+  } 
+
+  // Hanya menampilkan data jika peran pengguna adalah 'WIWS'
+  else if (userRole === 'RAM') {
+      const sqlRAMRead = "SELECT * FROM psb_table WHERE fungsi_dituju2 = 4";
+
+      db.query(sqlRAMRead, (err, readResults) => {
+          if (err) {
+              throw err;
+          } else if (!err) {
+              res.render('psbDataTable', {
+                  dataPSB: readResults
+              });
+
+          }
+      });
+  }
+
+  // Hanya menampilkan data jika peran pengguna adalah 'WIWS'
+  else if (userRole === 'PRODUKSI') {
+      const sqlProduksiRead = "SELECT * FROM psb_table WHERE fungsi_dituju2 = 6";
+
+      db.query(sqlProduksiRead, (err, readResults) => {
+          if (err) {
+              throw err;
+          } else if (!err) {
+              res.render('psbDataTable', {
+                  dataPSB: readResults
+              });
+
+          }
+      });
+  }
+
+  // Hanya menampilkan data jika peran pengguna adalah 'WIWS'
+  else if (userRole === 'SCM') {
+      const sqlSCMRead = "SELECT * FROM psb_table WHERE fungsi_dituju2 = 7";
+
+      db.query(sqlSCMRead, (err, readResults) => {
+          if (err) {
+              throw err;
+          } else if (!err) {
+              res.render('psbDataTable', {
+                  dataPSB: readResults
+              });
+
+          }
+      });
+  } 
+  
+  else {
+      // Tampilkan pesan atau lakukan sesuatu jika pengguna tidak memiliki peran 'ICT'
+      res.status(403).send('Access Forbidden'); // Atau ganti dengan tindakan lain yang sesuai
+  }
+};
+
 
 
 //view pb Table 
 exports.readPBData = (req, res)=>{
-  const sqlRead = "SELECT * FROM pb_table";
 
-  db.query(sqlRead, (err,readResults)=>{
+  // Periksa peran pengguna yang masuk
+  const userRole = req.session.userData ? req.session.userData.username : null;
 
-    if(err){
-      throw err; 
-    }
+  if(userRole === 'HSSE'){
+    const sqlHSSERead = "SELECT * FROM pb_table";
 
-    else if(!err){
-      res.render('pbDataTable',{
-        dataPB : readResults
-      });
-      console.log(readResults);
-    }
-  });
+    db.query(sqlHSSERead, (err,readResults)=>{
+  
+      if(err){
+        throw err; 
+      }
+  
+      else if(!err){
+        res.render('pbDataTable',{
+          dataPB : readResults
+        });
+
+      }
+    });
+  }
+
+  else if(userRole === 'ICT'){
+    const sqlHSSERead = "SELECT * FROM pb_table WHERE fungsi_dituju2 = 1";
+
+    db.query(sqlHSSERead, (err,readResults)=>{
+  
+      if(err){
+        throw err; 
+      }
+  
+      else if(!err){
+        res.render('pbDataTable',{
+          dataPB : readResults
+        });
+
+      }
+    });
+  }
+
+  else if(userRole === 'WIWS'){
+    const sqlWIWSRead = "SELECT * FROM pb_table WHERE fungsi_dituju2 = 2";
+
+    db.query(sqlWIWSRead, (err,readResults)=>{
+  
+      if(err){
+        throw err; 
+      }
+  
+      else if(!err){
+        res.render('pbDataTable',{
+          dataPB : readResults
+        });
+
+      }
+    });
+  } 
+
+  else if(userRole === 'PE'){
+    const sqlPERead = "SELECT * FROM pb_table WHERE fungsi_dituju2 = 3";
+
+    db.query(sqlPERead, (err,readResults)=>{
+  
+      if(err){
+        throw err; 
+      }
+  
+      else if(!err){
+        res.render('pbDataTable',{
+          dataPB : readResults
+        });
+
+      }
+    });
+  }
+
+  else if(userRole === 'RAM'){
+    const sqlRAMRead = "SELECT * FROM pb_table WHERE fungsi_dituju2 = 4";
+
+    db.query(sqlRAMRead, (err,readResults)=>{
+  
+      if(err){
+        throw err; 
+      }
+  
+      else if(!err){
+        res.render('pbDataTable',{
+          dataPB : readResults
+        });
+
+      }
+    });
+  }
+
+  else if(userRole === 'PRODUKSI'){
+    const sqlPRODUKSIRead = "SELECT * FROM pb_table WHERE fungsi_dituju2 = 6";
+
+    db.query(sqlPRODUKSIRead, (err,readResults)=>{
+  
+      if(err){
+        throw err; 
+      }
+  
+      else if(!err){
+        res.render('pbDataTable',{
+          dataPB : readResults
+        });
+
+      }
+    });
+  }
+
+
+  else if(userRole === 'SCM'){
+    const sqlSCMRead = "SELECT * FROM pb_table WHERE fungsi_dituju2 = 7";
+
+    db.query(sqlSCMRead, (err,readResults)=>{
+  
+      if(err){
+        throw err; 
+      }
+  
+      else if(!err){
+        res.render('pbDataTable',{
+          dataPB : readResults
+        });
+
+      }
+    });
+  }
 }
 
 //view pa Table 
@@ -279,6 +581,9 @@ exports.readPAData = (req, res)=>{
     }
   });
 }
+
+
+
 
 
 // // GET VIEW DETAIL HSEPLAN
