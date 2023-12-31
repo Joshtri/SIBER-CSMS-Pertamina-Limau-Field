@@ -636,7 +636,64 @@ exports.readPAData = (req, res)=>{
       console.log(readResults);
     }
   });
-				}
+
+			    
+   }
+   else if(userRole === 'RAM') {
+    
+    const sqlRAMRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 4";
+      db.query(sqlRAMRead, (err,readResults)=>{
+
+    if(err){
+      throw err; 
+    }
+
+    else if(!err){
+      res.render('paDataTable',{
+        dataPA : readResults
+      });
+      console.log(readResults);
+    }
+  });
+
+ }
+
+   else if(userRole === 'PRODUKSI') {
+    
+    const sqlPRODUKSIRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 6";
+      db.query(sqlPRODUKSIRead, (err,readResults)=>{
+
+    if(err){
+      throw err; 
+    }
+
+    else if(!err){
+      res.render('paDataTable',{
+        dataPA : readResults
+      });
+      console.log(readResults);
+    }
+  });
+
+   }
+
+	
+  else if(userRole === 'SCM') {
+    const sqlSCMRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 7";
+      db.query(sqlSCMRead, (err,readResults)=>{
+
+    if(err){
+      throw err; 
+    }
+
+    else if(!err){
+      res.render('paDataTable',{
+        dataPA : readResults
+      });
+      console.log(readResults);
+    }
+  });
+ }
 }
 
 
