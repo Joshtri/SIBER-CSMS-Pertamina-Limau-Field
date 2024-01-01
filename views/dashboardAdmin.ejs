@@ -35,6 +35,7 @@
   <link href="assets/css/pertaminaCore.css" rel="stylesheet">
 
   <link href="assets/css/inputCostum.css" rel="stylesheet">
+  <link href="assets/css/modalCostum.css" rel="stylesheet">
   <!-- <link href="assets/css/styleCostum.css" rel="stylesheet"> -->
 
   <!-- *Toastr Link  -->
@@ -115,6 +116,7 @@
   </style>
 
 
+
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center" style="background-color: #32599C;">
     <div class="container d-flex align-items-center">
@@ -151,7 +153,7 @@
 
           <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/logout">Log Out</a></li>
+              <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Log Out</a></li>
               <!-- <li><a href="#creator">Creator</a></li>
               <li><a href="#">Drop Down 3</a></li>
               <li><a href="#">Drop Down 4</a></li> -->
@@ -204,7 +206,7 @@
               <hr style="border-bottom: 1px solid #eee;">
               
               <h3 class="text-center">4</h3>
-              <p class="small fw-light">Lihat Detail<i class="mx-1 fa-solid fa-up-right-from-square fa-bounce"></i></p>
+              <!-- <p class="small fw-light">Lihat Detail<i class="mx-1 fa-solid fa-up-right-from-square fa-bounce"></i></p> -->
               </div>
             </div>
 
@@ -214,7 +216,7 @@
               <hr style="border-bottom: 1px solid #eee;">
               
               <h3 class="text-center">4</h3>
-              <p class="small fw-light">Lihat Detail<i class="mx-1 fa-solid fa-up-right-from-square fa-bounce"></i></p>
+              <!-- <p class="small fw-light">Lihat Detail<i class="mx-1 fa-solid fa-up-right-from-square fa-bounce"></i></p> -->
               </div>
             </div>
 
@@ -224,7 +226,7 @@
               <hr style="border-bottom: 1px solid #eee;">
               
               <h3 class="text-center">0</h3>
-              <p class="small fw-light">Lihat Detail<i class="mx-1 fa-solid fa-up-right-from-square fa-bounce"></i></p>
+              <!-- <p class="small fw-light">Lihat Detail<i class="mx-1 fa-solid fa-up-right-from-square fa-bounce"></i></p> -->
               </div>
             </div>
 
@@ -234,7 +236,7 @@
               <hr style="border-bottom: 1px solid #eee;">
               
               <h3 class="text-center">0</h3>
-              <p class="small fw-light">Lihat Detail<i class="mx-1 fa-solid fa-up-right-from-square fa-bounce"></i></p>
+              <!-- <p class="small fw-light">Lihat Detail<i class="mx-1 fa-solid fa-up-right-from-square fa-bounce"></i></p> -->
               </div>
             </div>
           </div>
@@ -387,6 +389,27 @@
       <!-- END KOTAK KHUSUS MITRA -->
     </div>
     <!-- END MENU MITRA -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+            <button type="button" style="color: white;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  
+  
+          </div>
+          <div class="modal-body">
+            <!-- Modal Content Goes Here -->
+            <p>Apakah anda ingin keluar dari dashboard pertamina ?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="/logout" class="btn btn-primary">Ya</a>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+          </div>
+        </div>
+      </div>
+    </div>
   
   </main><!-- End #main -->
 

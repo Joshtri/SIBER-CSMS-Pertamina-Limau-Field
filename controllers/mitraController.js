@@ -268,21 +268,31 @@ exports.postPAForm = (req,res)=>{
 
 //view hse Table 
 exports.readHSEData = (req, res)=>{
-  const sqlRead = "SELECT * FROM hseplan_table";
+  const userRole = req.session.userData ? req.session.userData.username : null;
+  
+  
+  // Hanya menampilkan data jika peran pengguna adalah 'HSSE'
+  if (userRole === 'HSSE') {
+    const sqlRead = "SELECT * FROM hseplan_table";
+    db.query(sqlRead, (err,readResults)=>{
 
-  db.query(sqlRead, (err,readResults)=>{
+      if(err){
+        throw err; 
+      }
 
-    if(err){
-      throw err; 
-    }
-
-    else if(!err){
-      res.render('hsePlanDataTable',{
-        dataHse : readResults
-      });
-      // console.log(readResults);
-    }
-  });
+      else if(!err){
+        res.render('hsePlanDataTable',{
+          dataHse : readResults
+        });
+        // console.log(readResults);
+      }
+    });
+  }
+  
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
 }
 
 //view psb Table 
@@ -299,7 +309,7 @@ exports.readHSEData = (req, res)=>{
 //       res.render('psbDataTable',{
 //         dataPSB : readResults
 //       });
-//       console.log(readResults);
+
 //     }
 //   });
 // }
@@ -309,6 +319,10 @@ exports.readPSBData = (req, res) => {
   // Periksa peran pengguna yang masuk
   const userRole = req.session.userData ? req.session.userData.username : null;
 
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
   // Hanya menampilkan data jika peran pengguna adalah 'HSSE'
   if (userRole === 'HSSE') {
       const sqlHSSERead = "SELECT * FROM psb_table";
@@ -420,6 +434,8 @@ exports.readPSBData = (req, res) => {
           }
       });
   } 
+
+
   
   else {
       // Tampilkan pesan atau lakukan sesuatu jika pengguna tidak memiliki peran 'ICT'
@@ -434,6 +450,11 @@ exports.readPBData = (req, res)=>{
 
   // Periksa peran pengguna yang masuk
   const userRole = req.session.userData ? req.session.userData.username : null;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
 
   if(userRole === 'HSSE'){
     const sqlHSSERead = "SELECT * FROM pb_table";
@@ -567,6 +588,11 @@ exports.readPBData = (req, res)=>{
 exports.readPAData = (req, res)=>{
   // Periksa peran pengguna yang masuk
   const userRole = req.session.userData ? req.session.userData.username : null;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
   
 
   if(userRole === 'HSSE') {
@@ -582,7 +608,7 @@ exports.readPAData = (req, res)=>{
       res.render('paDataTable',{
         dataPA : readResults
       });
-      console.log(readResults);
+
     }
   });
   }
@@ -599,7 +625,7 @@ exports.readPAData = (req, res)=>{
       res.render('paDataTable',{
         dataPA : readResults
       });
-      console.log(readResults);
+
     }
   });
     }
@@ -616,7 +642,7 @@ exports.readPAData = (req, res)=>{
       res.render('paDataTable',{
         dataPA : readResults
       });
-      console.log(readResults);
+
     }
   });
 			}
@@ -633,7 +659,7 @@ exports.readPAData = (req, res)=>{
       res.render('paDataTable',{
         dataPA : readResults
       });
-      console.log(readResults);
+
     }
   });
 
@@ -652,7 +678,7 @@ exports.readPAData = (req, res)=>{
       res.render('paDataTable',{
         dataPA : readResults
       });
-      console.log(readResults);
+
     }
   });
 
@@ -671,7 +697,7 @@ exports.readPAData = (req, res)=>{
       res.render('paDataTable',{
         dataPA : readResults
       });
-      console.log(readResults);
+
     }
   });
 
@@ -690,7 +716,7 @@ exports.readPAData = (req, res)=>{
       res.render('paDataTable',{
         dataPA : readResults
       });
-      console.log(readResults);
+
     }
   });
  }
@@ -738,7 +764,7 @@ exports.readPAData = (req, res)=>{
 //         files: results[0], 
 //         // results
 //       });
-//       // console.log(results);
+//       
 //     }
 //   });
 // }
@@ -746,7 +772,14 @@ exports.readPAData = (req, res)=>{
 // GET VIEW DETAIL HSEPLAN
 exports.detailHSEData = (req, res) => {
   const id_hse = req.params.id_hse;
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
   const sqlRead = "SELECT * FROM hseplan_table WHERE id_hse = ?";
+
+
   
   db.query(sqlRead, [id_hse], (err, results) => {
     if (err) {
@@ -788,6 +821,12 @@ exports.detailHSEData = (req, res) => {
 // GET VIEW DETAIL PSB
 exports.detailPSBData = (req, res) => {
   const id_psb = req.params.id_psb;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
   const sqlRead = "SELECT * FROM psb_table WHERE id_psb = ?";
   
   db.query(sqlRead, [id_psb], (err, results) => {
@@ -827,7 +866,6 @@ exports.detailPSBData = (req, res) => {
         files: results[0], 
         results
       });
-      // console.log(results);
     }
   });
 }
@@ -836,6 +874,12 @@ exports.detailPSBData = (req, res) => {
 // GET VIEW DETAIL PB
 exports.detailPBData = (req, res) => {
   const id_pb = req.params.id_pb;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
   const sqlRead = "SELECT * FROM pb_table WHERE id_pb = ?";
   
   db.query(sqlRead, [id_pb], (err, results) => {
@@ -880,6 +924,12 @@ exports.detailPBData = (req, res) => {
 // GET VIEW DETAIL PA
 exports.detailPAData = (req, res) => {
   const id_pa = req.params.id_pa;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
   const sqlRead = "SELECT * FROM pa_table WHERE id_pa = ?";
   
   db.query(sqlRead, [id_pa], (err, results) => {
@@ -924,6 +974,12 @@ exports.detailPAData = (req, res) => {
 exports.updateHSEdata = (req,res)=>{
   
   const id_hse = req.params.id_hse;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
   const sqlRead = "SELECT * FROM hseplan_table WHERE id_hse = ?";
 
 
@@ -959,7 +1015,7 @@ exports.updateHSEdata = (req,res)=>{
         results,
         notifSuksesHSEUpdate : false
       });
-     console.log(results);
+
     }
   });
   
@@ -971,6 +1027,12 @@ exports.updateHSEdata = (req,res)=>{
 exports.updatePSBdata = (req,res)=>{
   
   const id_psb = req.params.id_psb;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
   const sqlRead = "SELECT * FROM psb_table WHERE id_psb = ?";
 
 
@@ -1006,7 +1068,7 @@ exports.updatePSBdata = (req,res)=>{
         results,
         notifSuksesPSBUpdate : false
       });
-     console.log(results);
+
     }
   });
   
@@ -1018,6 +1080,12 @@ exports.updatePSBdata = (req,res)=>{
 exports.updatePAdata = (req,res)=>{
   
   const id_pa = req.params.id_pa;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
   const sqlRead = "SELECT * FROM pa_table WHERE id_pa = ?";
 
 
@@ -1051,7 +1119,7 @@ exports.updatePAdata = (req,res)=>{
         results,
         notifSuksesPAUpdate : false
       });
-     console.log(results);
+
     }
   });
   
@@ -1064,6 +1132,12 @@ exports.updatePAdata = (req,res)=>{
 exports.updatePBdata = (req,res)=>{
   
   const id_pb = req.params.id_pb;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
   const sqlRead = "SELECT * FROM pb_table WHERE id_pb = ?";
 
 
@@ -1099,7 +1173,7 @@ exports.updatePBdata = (req,res)=>{
         results,
         notifSuksesPBUpdate : false
       });
-     console.log(results);
+
     }
   });
   
@@ -1127,6 +1201,11 @@ exports.updatePBdata = (req,res)=>{
 // POST DATA psb TO UPDATE!!
 exports.postUpdateHSEPdata = (req, res) => {
   const { id_hse,status_mitra } = req.body;
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
 
   const sqlUpdate = 'UPDATE hseplan_table SET status_mitra = ? WHERE id_hse = ?';
   const values = [status_mitra, id_hse];
@@ -1153,6 +1232,12 @@ exports.postUpdateHSEPdata = (req, res) => {
 //POST DATA psb TO UPDATE!!
 exports.postUpdatePSBdata = (req,res)=>{
   const { id_psb,status_mitra } = req.body;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
 
   const sqlUpdate = 'UPDATE psb_table SET status_mitra = ? WHERE id_psb = ?';
   const values = [status_mitra, id_psb];
@@ -1187,6 +1272,12 @@ exports.postUpdatePSBdata = (req,res)=>{
 exports.postUpdatePAdata = (req,res)=>{
   const { id_pa,status_mitra } = req.body;
 
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
+
   const sqlUpdate = 'UPDATE pa_table SET status_mitra = ? WHERE id_pa = ?';
   const values = [status_mitra, id_pa];
 
@@ -1214,6 +1305,12 @@ exports.postUpdatePAdata = (req,res)=>{
 //POST DATA pb TO UPDATE!!
 exports.postUpdatePBdata = (req,res)=>{
   const { id_pb,status_mitra } = req.body;
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+  }
+  
 
   const sqlUpdate = 'UPDATE pb_table SET status_mitra = ? WHERE id_pb = ?';
   const values = [status_mitra, id_pb];

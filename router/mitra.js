@@ -4,7 +4,7 @@ const multer = require("multer")
 
 
 const mitraController = require('../controllers/mitraController');
-const {protect} = require('../auth/protect');
+const {isLoggedIn} = require('../auth/protect');
 
 
 const storage = multer.diskStorage({
@@ -34,7 +34,7 @@ router.post('/post-data-pa',upload.array('files', 8), mitraController.postPAForm
 //read data table
 router.get('/data/hse-data', mitraController.readHSEData);
 router.get('/data/psb-data', mitraController.readPSBData);
-router.get('/data/pb-data', mitraController.readPBData);
+router.get('/data/pb-data',mitraController.readPBData);
 router.get('/data/pa-data', mitraController.readPAData);
 
 
@@ -63,7 +63,7 @@ router.get('/data/update-pb/:id_pb', mitraController.updatePBdata);
 
 
 //POST update router 
-/* note : baru 2  POST UPDATE! */
+/* note : DONE  POST UPDATE! */
 router.post('/data/post-update-hse',mitraController.postUpdateHSEPdata);
 router.post('/data/post-update-psb', mitraController.postUpdatePSBdata);
 router.post('/data/post-update-pa',mitraController.postUpdatePAdata);

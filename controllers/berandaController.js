@@ -132,60 +132,68 @@ exports.berandaWeb = (req, res) => {
 };
 
 exports.berandaAdmin = async (req, res) => {
+
   const DashboardAdminTitle = "Dashboard Pertamina";
+
+  if (!req.session.userData || !req.session.userData.id_verifikator) {
+    // Jika pengguna belum login, redirect ke halaman login
+    return res.redirect('/login-pertamina');
+}
+
   
   const { blmDiprosesCountHSE, diterimaCountHSE, ditolakCountHSE } =
   await fetchDataHSE();
 
   const { blmDiprosesCountPSB, diterimaCountPSB, ditolakCountPSB } =
-    await fetchDataPSB();
+  await fetchDataPSB();
 
   const { blmDiprosesCountPB, diterimaCountPB, ditolakCountPB } =
-    await fetchDataPB();
-    
-    const { blmDiprosesCountPA, diterimaCountPA, ditolakCountPA } =
-    await fetchDataPA();
-    
-    const { id_verifikator } = req.session.userData;
-    
-    const queryUserData = "SELECT * FROM pertamina_divisi WHERE id_verifikator = ?";
+  await fetchDataPB();
+  
+  const { blmDiprosesCountPA, diterimaCountPA, ditolakCountPA } =
+  await fetchDataPA();
 
-    db.query(queryUserData, [id_verifikator], (err, results) => {
-        if (err) {
-            console.error('Error executing query:', err);
-            return res.status(500).send('Internal Server Error');
-        }
+  
+  const { id_verifikator } = req.session.userData;
+  
+  const queryUserData = "SELECT * FROM pertamina_divisi WHERE id_verifikator = ?";
 
-        if (results.length > 0) {
-            return res.render("dashboardAdmin", {
-                DashboardAdminTitle,
-                userData: results[0],
-            
-                //HSE
-                blmDiprosesCountHSE,
-                diterimaCountHSE,
-                ditolakCountHSE,
-            
-                //PSB
-            
-                blmDiprosesCountPSB,
-                diterimaCountPSB,
-                ditolakCountPSB,
-            
-                //PB
-                blmDiprosesCountPB,
-                diterimaCountPB,
-                ditolakCountPB,
-            
-                //PA
-                blmDiprosesCountPA,
-                diterimaCountPA,
-                ditolakCountPA,
-              });
-        } else {
-            return res.status(404).send('User not found');
-        }
-    });
+  db.query(queryUserData, [id_verifikator], (err, results) => {
+      if (err) {
+          console.error('Error executing query:', err);
+          return res.status(500).send('Internal Server Error');
+      }
+
+      if (results.length > 0) {
+          return res.render("dashboardAdmin", {
+              DashboardAdminTitle,
+              userData: results[0],
+          
+              //HSE
+              blmDiprosesCountHSE,
+              diterimaCountHSE,
+              ditolakCountHSE,
+          
+              //PSB
+          
+              blmDiprosesCountPSB,
+              diterimaCountPSB,
+              ditolakCountPSB,
+          
+              //PB
+              blmDiprosesCountPB,
+              diterimaCountPB,
+              ditolakCountPB,
+          
+              //PA
+              blmDiprosesCountPA,
+              diterimaCountPA,
+              ditolakCountPA,
+            });
+      } else {
+          return res.status(404).send('User not found');
+      }
+  });
 };
 
 //get view login Pertamina
@@ -319,7 +327,7 @@ exports.CheckingPIN = (req, res) => {
             // User not found
             return res.status(401).json({ message: 'Invalid username or password' });
         }
-
+        
         const hashedPasswordFromDatabase = results[0].password;
 
         bcrypt.compare(password, hashedPasswordFromDatabase, (err, passwordMatch) => {
@@ -377,7 +385,7 @@ exports.CreatingPIN = async (req, res) => {
     res.send(
       `${hashedPassword} <br> Buat PIN success. <br><a href="/TEBNiTYQrFFULHqFQluEuw==">Kembali</a>`
     );
-    console.log(results);
+
   });
 };
 
