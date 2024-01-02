@@ -1,5 +1,5 @@
 function checkPINLength() {
-    const PINInput = document.getElementById("pin");
+    const PINInput = document.getElementById("password");
     const maxPINLength = 11;
 
     if (PINInput.value.length >= maxPINLength) {

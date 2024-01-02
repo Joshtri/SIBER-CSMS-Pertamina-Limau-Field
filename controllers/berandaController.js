@@ -198,100 +198,20 @@ exports.berandaAdmin = async (req, res) => {
 
 //get view login Pertamina
 exports.loginPertamina = (req, res) => {
-  res.render("loginPertamina", {});
+  res.render("loginPertamina", {
+    notifyStatusLogin : false
+  });
 };
 
 //get view create pin page.
 exports.createPINPage = (req, res) => {
-  res.render("createPIN");
+  res.render("createPIN");  
 };
-
-// function untuk memeriksa PIN saat login
-// exports.CheckingPIN = (req, res) => {
-
-//     // destructuring
-//     const { username, password } = req.body;
-//     // declare sql query
-//     const sql = "SELECT * FROM pertamina_divisi WHERE username = ?";
-//     db.query(sql, username, (err, resultQuery) => {
-//     if (err) {
-//         throw err;
-//     }
-//     else if (resultQuery.length === 0) {
-//         return res.send("username tidak ditemukan");
-//     }
-
-//     bcrypt.compare(password, resultQuery[0].password, (err, result) => {
-//         if (err) {
-//             throw err;
-//         }
-//         if (!result) {
-
-//         return res.send("Password salah");
-//         // res.render("login", {
-//         //     loginData: data,
-//         //     notifier: true,
-//         // });
-//         } else {
-
-//             // res.send('berhasil')
-//             res.redirect('/dashboard-pertamina')
-//         }
-//     });
-//     });
-// };
-
-// exports.CheckingPIN = (req, res) => {
-//   const { username, password } = req.body;
-
-//   const sql = "SELECT * FROM pertamina_divisi WHERE username = ?";
-//   db.query(sql, [username], (err, results) => {
-//     if (err) {
-//       console.error("Error querying database:", err);
-//       return res.status(500).json({ message: "Internal server error" });
-//     }
-
-//     if (results.length === 0) {
-//       // User not found
-//       return res.status(401).json({ message: "Invalid username or password" });
-//     }
-
-//     const hashedPasswordFromDatabase = results[0].password;
-
-//     bcrypt.compare(
-//       password,
-//       hashedPasswordFromDatabase,
-//       (err, passwordMatch) => {
-//         if (err) {
-//           console.error("Error comparing passwords:", err);
-//           return res.status(500).json({ message: "Internal server error" });
-//         }
-
-//         if (passwordMatch) {
-//           // Passwords match, user is authenticated
-
-//           // Store user information in the session
-//           req.session.userData = {
-//             id_user: results[0].id_user, // Assuming you have a user ID in your database
-//             username: results[0].username,
-//             // Add more user information as needed
-//           };
-
-//           // Redirect to the dashboard or any other route
-//           //   res.status(200).json({ message: 'Login successful', redirect: '/dashboard' });
-//           res.redirect("/dashboard-pertamina");
-//         } else {
-//           // Passwords do not match, authentication failed
-//           res.status(401).json({ message: "Invalid username or password" });
-//         }
-//       }
-//     );
-//   });
-// };
 
 
 exports.CheckingPIN = (req, res) => {
     const { password } = req.body;
+    let notifyStatusLogin = false; // Set default value to false
 
     // Pemetaan antara password dan username
     const passwordUsernameMap = {
@@ -312,7 +232,12 @@ exports.CheckingPIN = (req, res) => {
 
     if (!username) {
         // Password tidak ditemukan dalam pemetaan, sehingga tidak ada username yang cocok
-        return res.status(401).json({ message: 'Invalid password' });
+        // return res.status(401).json({ message: 'Invalid password' });
+        notifyStatusLogin = true;
+        res.render('loginPertamina',{
+          notifyStatusLogin
+        })
+        return;
     }
 
     // Melakukan query ke database dengan username yang ditemukan

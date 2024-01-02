@@ -103,21 +103,7 @@
       <nav id="navbar" class="navbar ms-auto">
         <ul>
           <li><a class="nav-link scrollto" href="/">Beranda</a></li>
-          <li><a class="nav-link scrollto" href="/">Tentang Kami</a></li>
-          <!-- <li><a class="nav-link scrollto" href="#topik">Topik Utama</a></li> -->
-          <!-- <li><a class="nav-link scrollto " href="#creator">Creator</a></li> -->
-          <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li> -->
-          <!-- <li class="dropdown"><a href="#"><span>Lainnya</span> <i class="bi bi-chevron-down"></i></a>
-            <ul> 
-              <li><a href="#contact">Kontak</a></li>
-              <li><a href="#creator">Creator</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li> -->
-          <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
-          <!-- <li><a class="getstarted scrollto" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Log Out</a></li> -->
-          
+          <li><a class="nav-link scrollto" href="/">Tentang Kami</a></li>      
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -149,6 +135,12 @@
         <div class="section-title">
           <h2>LOGIN-PERTAMINA</h2>
         </div>
+        <% if (notifyStatusLogin) { %>
+          <div class="alert alert-danger col-5 mx-auto" role="alert">
+            Invalid PIN. Please try again.
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
         
         <form action="/login-divisi" method="POST">
           <div class=" mx-auto col-7 mt-1"> 
@@ -157,7 +149,7 @@
             </div> -->
 
             <div class="form-floating d-flex">
-              <input type="password" class="form-control" id="password" name="password" oninput="checkPINLength()" maxlength="11" placeholder="Password">
+              <input type="password" class="form-control" id="password" name="password" oninput="checkPINLength()" maxlength="11" placeholder="Password" >
               <label for="floatingPassword">PIN</label>
               <button type="button" class="btn btn-outline-light" onclick="togglePasswordVisibility()"><i class="text-dark bi bi-eye-slash"></i></button>
             </div>
@@ -166,7 +158,6 @@
           <div class="text-center mb-5 pb-5">
             <button type="submit" class="mt-4 btn btn-submit">Login</button>
           </div>
-          
           
         </form>
       </div>
@@ -189,17 +180,17 @@
 
   <script>
     function togglePasswordVisibility() {
-      const PINInput = document.getElementById("pin");
-      const eyeIcon = document.querySelector(".bi-eye-slash");
+      const passwordInput = document.getElementById("password");
+      const eyeIcon = document.querySelector(".fa-eye-slash");
 
-      if (PINInput.type === "password") {
-        PINInput.type = "text";
-        eyeIcon.classList.remove("bi-eye-slash");
-        eyeIcon.classList.add("bi-eye");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye");
       } else {
-        PINInput.type = "password";
-        eyeIcon.classList.remove("bi-eye");
-        eyeIcon.classList.add("bi-eye-slash");
+        passwordInput.type = "password";
+        eyeIcon.classList.remove("fa-eye");
+        // eyeIcon.classList.add("fa-eye-slash");
       }
     }
   </script>

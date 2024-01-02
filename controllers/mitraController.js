@@ -295,24 +295,6 @@ exports.readHSEData = (req, res)=>{
   }
 }
 
-//view psb Table 
-// exports.readPSBData = (req, res)=>{
-//   const sqlRead = "SELECT * FROM psb_table";
-
-//   db.query(sqlRead, (err,readResults)=>{
-
-//     if(err){
-//       throw err; 
-//     }
-
-//     else if(!err){
-//       res.render('psbDataTable',{
-//         dataPSB : readResults
-//       });
-
-//     }
-//   });
-// }
 
 // view psb Table
 exports.readPSBData = (req, res) => {
@@ -612,162 +594,116 @@ exports.readPAData = (req, res)=>{
     }
   });
   }
-    else if(userRole === 'ICT') {
-    
-    const sqlICTRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 1";
-      db.query(sqlICTRead, (err,readResults)=>{
+  else if(userRole === 'ICT') {
+  
+  const sqlICTRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 1";
+    db.query(sqlICTRead, (err,readResults)=>{
 
-    if(err){
-      throw err; 
-    }
+  if(err){
+    throw err; 
+  }
 
-    else if(!err){
-      res.render('paDataTable',{
-        dataPA : readResults
-      });
+  else if(!err){
+    res.render('paDataTable',{
+      dataPA : readResults
+    });
 
-    }
-  });
-    }
-	    else if(userRole === 'WIWS') {
-    
-    const sqlWIWSRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 2";
-      db.query(sqlWIWSRead, (err,readResults)=>{
+  }
+});
+  }
+  else if(userRole === 'WIWS') {
 
-    if(err){
-      throw err; 
-    }
+const sqlWIWSRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 2";
+  db.query(sqlWIWSRead, (err,readResults)=>{
 
-    else if(!err){
-      res.render('paDataTable',{
-        dataPA : readResults
-      });
-
-    }
-  });
-			}
-		    else if(userRole === 'PE') {
-    
-    const sqlPERead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 3";
-      db.query(sqlPERead, (err,readResults)=>{
-
-    if(err){
-      throw err; 
-    }
-
-    else if(!err){
-      res.render('paDataTable',{
-        dataPA : readResults
-      });
-
-    }
-  });
-
-			    
-   }
-   else if(userRole === 'RAM') {
-    
-    const sqlRAMRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 4";
-      db.query(sqlRAMRead, (err,readResults)=>{
-
-    if(err){
-      throw err; 
-    }
-
-    else if(!err){
-      res.render('paDataTable',{
-        dataPA : readResults
-      });
-
-    }
-  });
-
- }
-
-   else if(userRole === 'PRODUKSI') {
-    
-    const sqlPRODUKSIRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 6";
-      db.query(sqlPRODUKSIRead, (err,readResults)=>{
-
-    if(err){
-      throw err; 
-    }
-
-    else if(!err){
-      res.render('paDataTable',{
-        dataPA : readResults
-      });
-
-    }
-  });
-
-   }
-
-	
-  else if(userRole === 'SCM') {
-    const sqlSCMRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 7";
-      db.query(sqlSCMRead, (err,readResults)=>{
-
-    if(err){
-      throw err; 
-    }
-
-    else if(!err){
-      res.render('paDataTable',{
-        dataPA : readResults
-      });
-
-    }
-  });
- }
+if(err){
+  throw err; 
 }
 
+else if(!err){
+  res.render('paDataTable',{
+    dataPA : readResults
+  });
 
-
-
-
-// // GET VIEW DETAIL HSEPLAN
-// exports.detailHSEData = (req, res) => {
-//   const id_hse = req.params.id_hse;
-//   const sqlRead = "SELECT * FROM hseplan_table WHERE id_hse = ?";
+}
+});
+  }
+  else if(userRole === 'PE') {
   
-//   db.query(sqlRead, [id_hse], (err, results) => {
-//     if (err) {
-//       throw err;
-//     } else if(!err) {
-//       // Assuming that 'risk_level' and 'nama_mitra' are columns in your hseplan_table
-//       const {
-//          risk_assessment_id, 
-//          risk_level, 
-//          nama_pekerjaan,
-//          nama_mitra,
-//          tanggal_audit,
-//          lokasi_kerja,
-//          status_mitra,
-         
-         
+  const sqlPERead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 3";
+    db.query(sqlPERead, (err,readResults)=>{
+
+  if(err){
+    throw err; 
+  }
+
+  else if(!err){
+    res.render('paDataTable',{
+      dataPA : readResults
+    });
+
+  }
+});
+
         
-//         } = results[0]; // Assuming there's only one result
+  }
+  else if(userRole === 'RAM') {
+  
+  const sqlRAMRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 4";
+    db.query(sqlRAMRead, (err,readResults)=>{
+
+  if(err){
+    throw err; 
+  }
+
+  else if(!err){
+    res.render('paDataTable',{
+      dataPA : readResults
+    });
+
+  }
+});
+
+  }
+
+  else if(userRole === 'PRODUKSI') {
+  
+  const sqlPRODUKSIRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 6";
+    db.query(sqlPRODUKSIRead, (err,readResults)=>{
+
+  if(err){
+    throw err; 
+  }
+
+  else if(!err){
+    res.render('paDataTable',{
+      dataPA : readResults
+    });
+
+  }
+});
+
+  }
 
 
+  else if(userRole === 'SCM') {
+  const sqlSCMRead = "SELECT * FROM pa_table WHERE fungsi_dituju2 = 7";
+    db.query(sqlSCMRead, (err,readResults)=>{
 
-//       // Render the detailhse view with the details
-//       res.render('detailhse', {
-//         id_hse,
-//         risk_assessment_id,
-//         risk_level,
-//         nama_pekerjaan,
-//         nama_mitra,
-//         tanggal_audit,
-//         lokasi_kerja,
-//         status_mitra,
-//         files: results[0], 
-//         // results
-//       });
-//       
-//     }
-//   });
-// }
+  if(err){
+    throw err; 
+  }
+
+  else if(!err){
+    res.render('paDataTable',{
+      dataPA : readResults
+    });
+
+  }
+});
+  }
+}
+
 
 // GET VIEW DETAIL HSEPLAN
 exports.detailHSEData = (req, res) => {
@@ -1181,22 +1117,6 @@ exports.updatePBdata = (req,res)=>{
 }
 
 
-//POST DATA psb TO UPDATE!!
-// exports.postUpdateHSEPdata = (req,res)=>{
-//   const {id_hse, status_mitra} = req.body;
-
-//   const sqlUpdate = `UPDATE hseplan_table SET status_mitra ='${status_mitra}' WHERE id_hse ='${id_hse}'`;
-
-//   db.query(sqlUpdate, (err,results)=>{
-//     if(err){
-//       throw err;
-//     }
-
-//     else if(!err){
-//       res.send('Update Berhasil :)');
-//     };
-//   });
-// }
 
 // POST DATA psb TO UPDATE!!
 exports.postUpdateHSEPdata = (req, res) => {
