@@ -256,6 +256,12 @@
                     <input type="text" class="form-control" value="<%= nama_pekerjaan %>" disabled>
                 </div>
 
+                <div class="form-group col-md-4">
+                  <label for="name">Nomor Kontrak</label>
+                  <input type="text" class="form-control" value="<%= nomor_kontrak %>"  disabled>
+              </div>
+              
+
               </div>
 
 
@@ -367,11 +373,11 @@
                         </button>
                         
                     <% }else if (status_mitra === "Diterima") { %>
-                        <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip">
+                        <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Lulus" data-bs-toggle="tooltip">
                             <i class="fa-solid fa-check"></i>
                         </button>
                     <% } else if(status_mitra === "Ditolak") { %>
-                        <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip">
+                        <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Tidak Lulus" data-bs-toggle="tooltip">
                             <i class="fa-solid fa-check"></i>
                         </button>
                     <% } %>

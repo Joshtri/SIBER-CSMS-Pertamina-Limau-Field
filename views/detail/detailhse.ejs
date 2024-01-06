@@ -245,7 +245,7 @@
                     <!-- Konversi tanggal menggunakan JavaScript -->
                     <% const formattedDate = new Date(rawDate).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); %>
 
-                    <label for="name">Tanggal Audit</label>
+                    <label for="name">Tanggal Penilaian</label>
                     <!-- <span class="form-control" id="tanggal_audit" disabled><%= tanggal_audit %></span> -->
                     <input type="text" class="form-control" id="tanggal_audit" value="<%= formattedDate  %>" disabled> 
                     <!-- <p id="tanggal_audit"><%= tanggal_audit %></p> --> 
@@ -379,11 +379,11 @@
                         </button>
                         
                     <% }else if (status_mitra === "Diterima") { %>
-                        <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip">
+                        <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Lulus" data-bs-toggle="tooltip">
                             <i class="fa-solid fa-check"></i>
                         </button>
                     <% } else if(status_mitra === "Ditolak") { %>
-                        <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip">
+                        <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Tidak Lulus" data-bs-toggle="tooltip">
                             <i class="fa-solid fa-square-xmark"></i>
                         </button>
                     <% } %>

@@ -394,7 +394,7 @@
               <hr>
 
               <div class="form-group col-lg-4">
-                  <label for="" class="form-label">Status Mitra : </label>
+                  <label for="" class="form-label">Progres Mitra : </label>
                   <!-- <p><%= status_mitra %></p> -->
                   <% if (status_mitra === "Belum Diproses") { %>
                       <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
@@ -402,22 +402,24 @@
                       </button>
                       
                   <% }else if (status_mitra === "Diterima") { %>
-                      <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip">
+                      <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Lulus" data-bs-toggle="tooltip">
                           <i class="fa-solid fa-check"></i>
                       </button>
                   <% } else if(status_mitra === "Ditolak") { %>
-                      <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip">
+                      <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Tidak Lulus" data-bs-toggle="tooltip">
                         <i class="fa-solid fa-x fa-beat-fade"></i>
                       </button>
                   <% } %>
 
-                  <div class="form-group mt-3">
-                    <label for="" class="form-label">Ubah Status Mitra : </label>
-                    <select class="form-control" name="status_mitra" id="status_mitra">
-                      <option value="Belum Diproses">Belum Diproses</option>
-                      <option value="Ditolak">Ditolak</option>
-                      <option value="Diterima">Diterima</option>
-                    </select>
+                  <div class="row">
+                    <div class="form-group mt-3">
+                      <label for="" class="form-label">Ubah Progres Mitra : </label>
+                      <select class="form-control" name="status_mitra" id="status_mitra">
+                        <option value="Belum Diproses">Belum Diproses</option>
+                        <option value="Ditolak">Tidak Lulus</option>
+                        <option value="Diterima">Lulus</option>
+                      </select>
+                    </div>
                   </div>
 
 

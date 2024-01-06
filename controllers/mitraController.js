@@ -37,35 +37,28 @@ const upload = multer({ storage: storage });
 // }
 
 //get view upload data mitra
-exports.formMitra = (req,res)=>{
-
+exports.formMitra = (req, res) => {
   const sqlRead = "SELECT * FROM fungsi_pertamina";
 
-  db.query(sqlRead, (err,readResults)=>{
+  db.query(sqlRead, (err, readResults) => {
+    if (err) {
+      throw err;
+    } else if (!err) {
+      // Filter out the data with id 5
+      // const filteredFungsiPertamina = readResults.filter(
+      //   (fungsi) => fungsi.id_fungsi !== 5
+      // );
 
-    if(err){
-      throw err; 
-    }
-
-    else if(!err){
-      res.render('formMitra',{
-        fungsi_pertamina : readResults,
-        notifSuksesHSEUpload : false,
-        notifSuksesPSBUpload : false,
-        notifSuksesPBUpload : false,
-        notifSuksesPAUpload : false,
+      res.render('formMitra', {
+        fungsi_pertamina: readResults,
+        notifSuksesHSEUpload: false,
+        notifSuksesPSBUpload: false,
+        notifSuksesPBUpload: false,
+        notifSuksesPAUpload: false,
       });
-      // console.log(readResults);
     }
   });
-    // res.render('formMitra',{
-    //   notifSuksesHSEUpload : false,
-    //   notifSuksesPSBUpload : false,
-    //   notifSuksesPBUpload : false,
-    //   notifSuksesPAUpload : false,
-      
-    // })
-}
+};
 
 
 
@@ -111,6 +104,7 @@ exports.postFormHSEPlan = (req,res)=>{
       //* next action.
       // res.send("Berhasil :)");
       res.render('formMitra',{
+        fungsi_pertamina: [],
         notifSuksesHSEUpload : true,
         notifSuksesPSBUpload : false,
         notifSuksesPBUpload : false,
@@ -1034,7 +1028,7 @@ exports.updatePAdata = (req,res)=>{
       // Assuming that 'risk_level' and 'nama_mitra' are columns in your hseplan_table
       const {
         risk_assessment_id, 
-        risk_level, 
+        risk_level,
         nama_pekerjaan,
         nomor_kontrak,
         tanggal_penilaian,
