@@ -81,6 +81,8 @@ exports.postFormHSEPlan = (req,res)=>{
       nama_mitra : req.body.nama_mitra, 
       tanggal_audit : req.body.tanggal_audit,
       lokasi_kerja : req.body.lokasi_kerja,
+      no_hp : req.body.no_hp,
+      alamat_email : req.body.alamat_email,
       // file_paths : filePaths.join(';')
 
       //file uploads.
@@ -127,6 +129,8 @@ exports.postPSBForm = (req, res) => {
       tanggal_penilaian: req.body.tanggal_penilaian,
       // tempat_penilaian : req.body.tempat_penilaian,
       fungsi_dituju2: req.body.fungsi_dituju2,
+      no_hp : req.body.no_hp,
+      alamat_email : req.body.alamat_email,
 
       // file uploads.
       file1: req.files[0].filename,
@@ -175,6 +179,10 @@ exports.postPBForm = (req,res)=>{
       nama_kontraktor : req.body.nama_kontraktor ,
       tanggal_penilaian : req.body.tanggal_penilaian,
       fungsi_dituju2: req.body.fungsi_dituju2,
+      //ada 3 yang baru. 
+      no_hp : req.body.no_hp,
+      alamat_email : req.body.alamat_email,
+      temuan: req.body.temuan,
 
       //file uploads.
       file1: req.files[0].filename,
@@ -222,6 +230,9 @@ exports.postPAForm = (req,res)=>{
       nama_pekerjaan : req.body.nama_pekerjaan,
       tanggal_penilaian : req.body.tanggal_penilaian,
       fungsi_dituju2: req.body.fungsi_dituju2,
+      no_hp : req.body.no_hp,
+      alamat_email : req.body.alamat_email,
+      temuan: req.body.temuan,
 
       //file uploads.
       file1: req.files[0].filename,
@@ -723,6 +734,10 @@ exports.detailHSEData = (req, res) => {
         nama_mitra,
         tanggal_audit,
         lokasi_kerja,
+        nilai_total,
+        keterangan_verifikasi,
+        no_hp,
+        alamat_email,
         status_mitra,
         // ... other properties
       } = results[0];
@@ -736,6 +751,10 @@ exports.detailHSEData = (req, res) => {
         nama_mitra,
         tanggal_audit,
         lokasi_kerja,
+        nilai_total,
+        keterangan_verifikasi,
+        no_hp,
+        alamat_email,
         status_mitra,
         files: results[0], 
         // results
@@ -770,9 +789,14 @@ exports.detailPSBData = (req, res) => {
          nomor_kontrak,
          nama_pekerjaan,
          nama_kontraktor,
+         nilai_total,
+         keterangan_verifikasi,
+         no_hp,
+         alamat_email,
          tanggal_penilaian,
          tempat_penilaian,
          status_mitra,
+         fungsi_dituju2,
 
          //file uploads !!!!! --- mostly important
          
@@ -792,7 +816,12 @@ exports.detailPSBData = (req, res) => {
         nama_kontraktor,
         tanggal_penilaian,
         tempat_penilaian,
+        nilai_total,
+        keterangan_verifikasi,
+        no_hp,
+        alamat_email,
         status_mitra,
+        fungsi_dituju2,
         files: results[0], 
         results
       });
@@ -823,7 +852,12 @@ exports.detailPBData = (req, res) => {
          nomor_kontrak,
          nama_kontraktor,
          tanggal_penilaian,
+         nilai_total,
+         keterangan_verifikasi,
+         no_hp,
+         alamat_email,
          status_mitra,
+         fungsi_dituju2,
 
          //file uploads !!!!! --- mostly important
          
@@ -842,6 +876,11 @@ exports.detailPBData = (req, res) => {
         nama_kontraktor,
         tanggal_penilaian,
         status_mitra,
+        fungsi_dituju2,
+        nilai_total,
+        keterangan_verifikasi,
+        no_hp,
+        alamat_email,
         files: results[0], 
         results
       });
@@ -873,7 +912,13 @@ exports.detailPAData = (req, res) => {
          nomor_kontrak, 
          nama_pekerjaan,
          tanggal_penilaian,
+         nilai_total,
+         keterangan_verifikasi,
+         no_hp,
+         temuan,
+         alamat_email,
          status_mitra,
+         fungsi_dituju2,
 
          //file uploads !!!!! --- mostly important
          
@@ -890,11 +935,17 @@ exports.detailPAData = (req, res) => {
         nomor_kontrak,
         nama_pekerjaan,
         tanggal_penilaian,
+        nilai_total,
+        keterangan_verifikasi,
+        no_hp,
+        temuan,
+        alamat_email,
         status_mitra,
+        fungsi_dituju2,
         files: results[0], 
         results
       });
-      // console.log(results);
+      console.log(results);
     }
   });
 }
@@ -927,6 +978,8 @@ exports.updateHSEdata = (req,res)=>{
         nama_mitra,
         tanggal_audit,
         lokasi_kerja,
+        nilai_total,
+        keterangan_verifikasi,
         status_mitra,
                        
       } = results[0]; // Assuming there's only one result
@@ -940,6 +993,8 @@ exports.updateHSEdata = (req,res)=>{
         nama_mitra,
         tanggal_audit,
         lokasi_kerja,
+        nilai_total,
+        keterangan_verifikasi,
         status_mitra,
         files: results[0], 
         results,
@@ -980,6 +1035,8 @@ exports.updatePSBdata = (req,res)=>{
         nomor_kontrak,
         nama_kontraktor,
         tanggal_penilaian,
+        nilai_total,
+        keterangan_verifikasi,
         status_mitra,
                        
       } = results[0]; // Assuming there's only one result
@@ -994,6 +1051,8 @@ exports.updatePSBdata = (req,res)=>{
         nama_kontraktor,
         tanggal_penilaian,
         status_mitra,
+        nilai_total,
+        keterangan_verifikasi,
         files: results[0], 
         results,
         notifSuksesPSBUpdate : false
@@ -1033,6 +1092,8 @@ exports.updatePAdata = (req,res)=>{
         nomor_kontrak,
         tanggal_penilaian,
         status_mitra,
+        nilai_total,
+        keterangan_verifikasi,
                        
       } = results[0]; // Assuming there's only one result
 
@@ -1045,6 +1106,8 @@ exports.updatePAdata = (req,res)=>{
         nomor_kontrak,
         tanggal_penilaian,
         status_mitra,
+        nilai_total,
+        keterangan_verifikasi,
         files: results[0], 
         results,
         notifSuksesPAUpdate : false
@@ -1086,6 +1149,8 @@ exports.updatePBdata = (req,res)=>{
         nama_kontraktor,
         tanggal_penilaian,
         status_mitra,
+        nilai_total,
+        keterangan_verifikasi,
                        
       } = results[0]; // Assuming there's only one result
 
@@ -1099,6 +1164,8 @@ exports.updatePBdata = (req,res)=>{
         nama_kontraktor,
         tanggal_penilaian,
         status_mitra,
+        nilai_total,
+        keterangan_verifikasi,
         files: results[0], 
         results,
         notifSuksesPBUpdate : false
@@ -1114,15 +1181,15 @@ exports.updatePBdata = (req,res)=>{
 
 // POST DATA psb TO UPDATE!!
 exports.postUpdateHSEPdata = (req, res) => {
-  const { id_hse,status_mitra } = req.body;
+  const { id_hse,status_mitra, nilai_total, keterangan_verifikasi } = req.body;
   if (!req.session.userData || !req.session.userData.id_verifikator) {
     // Jika pengguna belum login, redirect ke halaman login
     return res.redirect('/login-pertamina');
   }
   
 
-  const sqlUpdate = 'UPDATE hseplan_table SET status_mitra = ? WHERE id_hse = ?';
-  const values = [status_mitra, id_hse];
+  const sqlUpdate = 'UPDATE hseplan_table SET status_mitra = ?, nilai_total = ?, keterangan_verifikasi = ? WHERE id_hse = ?';
+  const values = [status_mitra, nilai_total, keterangan_verifikasi, id_hse];
 
   db.query(sqlUpdate, values, (err, results) => {
     if (err) {
@@ -1145,7 +1212,7 @@ exports.postUpdateHSEPdata = (req, res) => {
 
 //POST DATA psb TO UPDATE!!
 exports.postUpdatePSBdata = (req,res)=>{
-  const { id_psb,status_mitra } = req.body;
+  const { id_psb,status_mitra, nilai_total, keterangan_verifikasi } = req.body;
 
   if (!req.session.userData || !req.session.userData.id_verifikator) {
     // Jika pengguna belum login, redirect ke halaman login
@@ -1153,8 +1220,8 @@ exports.postUpdatePSBdata = (req,res)=>{
   }
   
 
-  const sqlUpdate = 'UPDATE psb_table SET status_mitra = ? WHERE id_psb = ?';
-  const values = [status_mitra, id_psb];
+  const sqlUpdate = 'UPDATE psb_table SET status_mitra = ?, nilai_total = ?, keterangan_verifikasi = ? WHERE id_psb = ?';
+  const values = [status_mitra , nilai_total, keterangan_verifikasi, id_psb];
 
   db.query(sqlUpdate, values, (err, results) => {
     if (err) {
@@ -1184,7 +1251,7 @@ exports.postUpdatePSBdata = (req,res)=>{
 
 //POST DATA PA TO UPDATE!!
 exports.postUpdatePAdata = (req,res)=>{
-  const { id_pa,status_mitra } = req.body;
+  const { id_pa,status_mitra, nilai_total, keterangan_verifikasi } = req.body;
 
   if (!req.session.userData || !req.session.userData.id_verifikator) {
     // Jika pengguna belum login, redirect ke halaman login
@@ -1192,8 +1259,8 @@ exports.postUpdatePAdata = (req,res)=>{
   }
   
 
-  const sqlUpdate = 'UPDATE pa_table SET status_mitra = ? WHERE id_pa = ?';
-  const values = [status_mitra, id_pa];
+  const sqlUpdate = 'UPDATE pa_table SET status_mitra = ?, nilai_total = ?, keterangan_verifikasi = ? WHERE id_pa = ?';
+  const values = [status_mitra , nilai_total, keterangan_verifikasi, id_pa];
 
   db.query(sqlUpdate, values, (err, results) => {
     if (err) {
@@ -1218,7 +1285,7 @@ exports.postUpdatePAdata = (req,res)=>{
 
 //POST DATA pb TO UPDATE!!
 exports.postUpdatePBdata = (req,res)=>{
-  const { id_pb,status_mitra } = req.body;
+  const { id_pb,status_mitra, nilai_total, keterangan_verifikasi } = req.body;
 
   if (!req.session.userData || !req.session.userData.id_verifikator) {
     // Jika pengguna belum login, redirect ke halaman login
@@ -1226,8 +1293,8 @@ exports.postUpdatePBdata = (req,res)=>{
   }
   
 
-  const sqlUpdate = 'UPDATE pb_table SET status_mitra = ? WHERE id_pb = ?';
-  const values = [status_mitra, id_pb];
+  const sqlUpdate = 'UPDATE pb_table SET status_mitra = ?, nilai_total = ?, keterangan_verifikasi = ? WHERE id_pb = ?';
+  const values = [status_mitra, nilai_total, keterangan_verifikasi, id_pb];
 
   db.query(sqlUpdate, values, (err, results) => {
     if (err) {

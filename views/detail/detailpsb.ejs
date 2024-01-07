@@ -261,6 +261,48 @@
                     <input type="text" class="form-control" value="<%= nama_kontraktor %>" disabled>
                 </div>
 
+                <div class="form-group col-md-4">
+                    <label for="name">Nomor Kontrak</label>
+                    <input type="text" class="form-control" value="<%= nomor_kontrak %>" disabled>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="name">Fungsi Dituju</label>
+                
+                  <% if (fungsi_dituju2 === 1) { %>
+                    <input type="text" class="form-control" value="ICT" disabled>
+                  <% } else if (fungsi_dituju2 === 2) { %>
+                    <input type="text" class="form-control" value="WIWS" disabled>
+                  <% } else if (fungsi_dituju2 === 3) { %>
+                    <input type="text" class="form-control" value="PE" disabled>
+                  <% } else if (fungsi_dituju2 === 4) { %>
+                    <input type="text" class="form-control" value="RAM" disabled>
+                  <% } else if (fungsi_dituju2 === 5) { %>
+                    <input type="text" class="form-control" value="HSSE" disabled>
+                  <% } else if (fungsi_dituju2 === 6) { %>
+                    <input type="text" class="form-control" value="Produksi" disabled>
+                  <% } else if (fungsi_dituju2 === 7) { %>
+                    <input type="text" class="form-control" value="SCM" disabled>
+                  <% } else { %>
+                    <input type="text" class="form-control" value="Kosong" disabled>
+                  <% } %>
+                </div>
+
+              </div>
+
+              <hr>
+
+              <h3>Kontak Mitra</h3>
+              <div class="row d-flex">
+                <div class="form-group col-md-5">
+                  <label for="name">No Handphone/WA</label>
+                  <input type="text" class="form-control" value="<%= no_hp %>" disabled> 
+                </div>
+                
+                <div class="form-group col-md-5">
+                  <label for="name">Alamat Email</label>
+                  <input type="text" class="form-control" value="<%= alamat_email %>" disabled> 
+                </div>
               </div>
 
 
@@ -364,7 +406,7 @@
                 <hr>
 
                 <div class="form-group col-lg-4">
-                    <label for="" class="form-label">Status Mitra : </label>
+                    <label for="" class="form-label">Progres Mitra : </label>
                     <!-- <p><%= status_mitra %></p> -->
                     <% if (status_mitra === "Belum Diproses") { %>
                         <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
@@ -384,6 +426,18 @@
 
                     <!-- <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip"><i class="fa-solid fa-square-check"></i></button> -->
                     <!-- <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip"><i class="fa-solid fa-spinner fa-spin"></i></button> -->
+                </div>
+
+                <div class="form-group col-md-6 mt-3">
+                  <label for="name">Penilaian</label>
+                  <input type="number" class="form-control" name="nilai_total" value="<%= nilai_total %>" oninput="validateInput(this)" disabled>
+                  <div class="form-text">*) Nilai 0-100</div>
+                </div>
+                
+                <div class="form-group col-md-12 mt-3">
+                  <label for="name">Keterangan Verifikasi</label>
+                  <textarea class="form-control" rows="5" cols="5" name="keterangan_verifikasi" aria-label="With textarea" disabled><%= keterangan_verifikasi %></textarea>
+                  <div class="form-text">*) Berikan keterangan jika ada</div>
                 </div>
                 <!-- <h5 class="card-title">Status Mitra</h5> -->
                             

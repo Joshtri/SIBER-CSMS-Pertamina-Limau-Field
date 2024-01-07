@@ -221,6 +221,7 @@
                     <th>Nama Kontraktor</th>
                     <th>Risk Level</th>
                     <th>Tanggal Penilaian</th>
+                    <th>Email Mitra</th>
                     <th>Progres</th>
                     <th>Aksi</th>
                 </tr>
@@ -230,9 +231,10 @@
                     <% for (let i = 0; i < dataPSB.length; i++) { %>
                         <tr class="text-center">
                             <td><%= i + 1 %></td>
-                            <td><%= dataPSB[i].nama_kontraktor %></td>
-                            <td><%= dataPSB[i].risk_level %></td>
+                            <td class="text-capitalize"><%= dataPSB[i].nama_kontraktor %></td>
+                            <td class="text-capitalize"><%= dataPSB[i].risk_level %></td>
                             <td><%= dataPSB[i].tanggal_penilaian %></td>
+                            <td><%= dataPSB[i].alamat_email %></td>
                             <td>
                                 <% if (dataPSB[i].status_mitra === "Belum Diproses") { %>
                                     <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">

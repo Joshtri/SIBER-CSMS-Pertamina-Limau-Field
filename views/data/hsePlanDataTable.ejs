@@ -221,6 +221,7 @@
                         <th>Nama Mitra</th>  <!-- 🧘 --> 
                         <th>Risk Level</th>
                         <th>Tanggal Penilaian</th>
+                        <th>Email Mitra</th>
                         <th>Progres</th>
                         <th>Aksi</th>
                     </tr>
@@ -232,8 +233,9 @@
 
                             <td><%= i + 1%></td>
                             <td><%= dataHse[i].nama_mitra %></td>
-                            <td><%= dataHse[i].risk_level %></td>
+                            <td class="text-capitalize"><%= dataHse[i].risk_level %></td>
                             <td><%= dataHse[i].tanggal_audit %></td>
+                            <td><%= dataHse[i].alamat_email %></td>
                             <td>
                               <% if (dataHse[i].status_mitra === "Belum Diproses") { %>
                                 <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">

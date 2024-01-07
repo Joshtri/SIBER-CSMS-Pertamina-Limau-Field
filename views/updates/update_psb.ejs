@@ -149,27 +149,6 @@
     </div>
   </header>
 
-
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
-          <button type="button" style="color: white;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-
-        </div>
-        <div class="modal-body">
-          <!-- Modal Content Goes Here -->
-          <p>Apakah anda ingin keluar dari dashboard pertamina ?</p>
-        </div>
-        <div class="modal-footer">
-          <a href="/logout" class="btn btn-primary">Ya</a>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-        </div>
-      </div>
-    </div>
-  </div>
   <!-- End Header -->
 
   <main id="main">
@@ -412,17 +391,40 @@
                   <% } %>
 
                   <div class="row">
-                    <div class="form-group mt-3">
-                      <label for="" class="form-label">Ubah Progres Mitra : </label>
+                    <div class="form-group col-md-6 mt-3">  
+                      <label for="" class="form-label">Ubah Progres Mitra:</label>
                       <select class="form-control" name="status_mitra" id="status_mitra">
                         <option value="Belum Diproses">Belum Diproses</option>
                         <option value="Ditolak">Tidak Lulus</option>
                         <option value="Diterima">Lulus</option>
                       </select>
                     </div>
+
+                    <div class="form-group col-md-6 mt-3">
+                      <label for="name">Penilaian</label>
+                      <input type="text" class="form-control" name="nilai_total" value="<%= nilai_total %>" oninput="validateInput(this)">
+                      <div class="form-text">*) Nilai 0-100, </div>
+                      <div class="form-text">*) Contoh : 33.55</div>
+                    </div>
+                    
+                    <script>
+                    function validateInput(input) {
+                      // Hapus karakter non-angka dan pecahan
+                      input.value = input.value.replace(/[^\d.]/g, '');
+                    
+                      // Batasi nilai antara 0 dan 100
+                      if (input.value > 100) {
+                        input.value = 100;
+                      }
+                    }
+                    </script>       
                   </div>
-
-
+                  
+                  <div class="form-group col-md-12 mt-3">
+                    <label for="name">Keterangan Verifikasi</label>
+                    <textarea class="form-control" rows="5" cols="5" name="keterangan_verifikasi" aria-label="With textarea"> <%= keterangan_verifikasi %></textarea>
+                    <div class="form-text">*) Berikan keterangan jika ada</div>
+                  </div>
               
 
                   <!-- <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip"><i class="fa-solid fa-square-check"></i></button> -->
@@ -437,6 +439,27 @@
         </div>
       </div>
     </section><!-- End About Us Section -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+            <button type="button" style="color: white;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  
+  
+          </div>
+          <div class="modal-body">
+            <!-- Modal Content Goes Here -->
+            <p>Apakah anda ingin keluar dari dashboard pertamina ?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="/logout" class="btn btn-primary">Ya</a>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </main><!-- End #main -->
 

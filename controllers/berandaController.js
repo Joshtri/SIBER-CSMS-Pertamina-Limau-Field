@@ -123,6 +123,47 @@ const fetchDataPA = async () => {
   }
 };
 
+
+const fetchTotalBerkas = async() => {
+
+//   SELECT COUNT(*) as hseplanCount FROM hseplan_table;
+// SELECT COUNT(*) as psbCount FROM psb_table;
+// SELECT COUNT(*) as paCount FROM pa_table;
+// SELECT COUNT(*) as pbCount FROM pb_table;
+  try {
+    const [totalBerkasHSE, totalBerkasPSB, totalBerkasPA,totalBerkasPB] =
+      await Promise.all([
+        query(
+          "SELECT COUNT(*) as hseplanCount FROM hseplan_table"
+        ),
+        query(
+          "SELECT COUNT(*) as psbCount FROM psb_table"
+        ),
+        query(
+          "SELECT COUNT(*) as paCount FROM pa_table"
+        ),
+        query(
+          "SELECT COUNT(*) as pbCount FROM pb_table"
+        ),
+      ]);
+
+      const hseplanCount = totalBerkasHSE[0].hseplanCount;
+      const psbCount = totalBerkasPSB[0].psbCount;
+      const paCount = totalBerkasPA[0].paCount;
+      const pbCount = totalBerkasPB[0].pbCount;
+
+    return {
+      hseplanCount,
+      psbCount,
+      paCount,
+      pbCount,
+    };
+  } catch (err) {
+    throw err;
+  }
+
+}
+
 exports.berandaWeb = (req, res) => {
   const berandaTitle = "Beranda | SIBER Pertamina Limau Field"; // Gantilah dengan data atau variabel yang sesuai
 
@@ -153,6 +194,13 @@ exports.berandaAdmin = async (req, res) => {
   const { blmDiprosesCountPA, diterimaCountPA, ditolakCountPA } =
   await fetchDataPA();
 
+  const {
+    hseplanCount,
+    psbCount,
+    paCount,
+    pbCount,
+  } = await fetchTotalBerkas();
+
   
   const { id_verifikator } = req.session.userData;
   
@@ -173,22 +221,26 @@ exports.berandaAdmin = async (req, res) => {
               blmDiprosesCountHSE,
               diterimaCountHSE,
               ditolakCountHSE,
+              hseplanCount,
           
               //PSB
           
               blmDiprosesCountPSB,
               diterimaCountPSB,
               ditolakCountPSB,
+              psbCount,
           
               //PB
               blmDiprosesCountPB,
               diterimaCountPB,
               ditolakCountPB,
+              pbCount,
           
               //PA
               blmDiprosesCountPA,
               diterimaCountPA,
               ditolakCountPA,
+              paCount
             });
       } else {
           return res.status(404).send('User not found');

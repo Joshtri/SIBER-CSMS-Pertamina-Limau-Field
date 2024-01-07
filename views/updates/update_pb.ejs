@@ -387,13 +387,40 @@
                       </button>
                   <% } %>
 
-                  <div class="form-group mt-3">
-                    <label for="" class="form-label">Ubah Progres Mitra : </label>
-                    <select class="form-control" name="status_mitra" id="status_mitra">
-                      <option value="Belum Diproses">Belum Diproses</option>
-                      <option value="Ditolak">Tidak Lulus</option>
-                      <option value="Diterima">Lulus</option>
-                    </select>
+                  <div class="row">
+                    <div class="form-group col-md-6 mt-3">  
+                      <label for="" class="form-label">Ubah Progres Mitra:</label>
+                      <select class="form-control" name="status_mitra" id="status_mitra">
+                        <option value="Belum Diproses">Belum Diproses</option>
+                        <option value="Ditolak">Tidak Lulus</option>
+                        <option value="Diterima">Lulus</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-6 mt-3">
+                      <label for="name">Penilaian</label>
+                      <input type="text" class="form-control" name="nilai_total" value="<%= nilai_total %>" oninput="validateInput(this)">
+                      <div class="form-text">*) Nilai 0-100, </div>
+                      <div class="form-text">*) Contoh : 33.55</div>
+                    </div>
+                    
+                    <script>
+                    function validateInput(input) {
+                      // Hapus karakter non-angka dan pecahan
+                      input.value = input.value.replace(/[^\d.]/g, '');
+                    
+                      // Batasi nilai antara 0 dan 100
+                      if (input.value > 100) {
+                        input.value = 100;
+                      }
+                    }
+                    </script>       
+                  </div>
+                  
+                  <div class="form-group col-md-12 mt-3">
+                    <label for="name">Keterangan Verifikasi</label>
+                    <textarea class="form-control" rows="5" cols="5" name="keterangan_verifikasi" aria-label="With textarea"> <%= keterangan_verifikasi %></textarea>
+                    <div class="form-text">*) Berikan keterangan jika ada</div>
                   </div>
 
 

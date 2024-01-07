@@ -224,6 +224,7 @@
                         <th>Nama Pekerjaan</th>  <!-- 🧘 --> 
                         <th>Risk Level</th>
                         <th>Tanggal Penilaian</th>
+                        <th>Email Mitra</th>
                         <th>Progres</th>
                         <th>Aksi</th>
                     </tr>
@@ -233,9 +234,10 @@
                     <% for(let i = 0; i < dataPA.length; i++) { %>
                         <tr class="text-center">
                             <td><%= i + 1%></td>
-                            <td><%= dataPA[i].nama_pekerjaan %></td>
-                            <td><%= dataPA[i].risk_level %></td>
-                            <td><%= dataPA[i].tanggal_penilaian %></td>
+                            <td class="text-capitalize"><%= dataPA[i].nama_pekerjaan %></td>
+                            <td class="text-capitalize"><%= dataPA[i].risk_level %></td>
+                            <td class="text-capitalize"><%= dataPA[i].tanggal_penilaian %></td>
+                            <td><%= dataPA[i].alamat_email %></td>
                             <td>
                               <% if (dataPA[i].status_mitra === "Belum Diproses") { %>
                                 <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
