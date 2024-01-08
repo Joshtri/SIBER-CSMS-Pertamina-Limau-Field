@@ -123,39 +123,41 @@ const fetchDataPA = async () => {
   }
 };
 
-const fetchDashboardIkhtisar = async()=>{
-  // SELECT
-  //   (SELECT COUNT(*) FROM pb_table) +
-  //   (SELECT COUNT(*) FROM pa_table) +
-  //   (SELECT COUNT(*) FROM psb_table) +
-  //   (SELECT COUNT(*) FROM hseplan_table) AS totalRecordCount;
 
-  try{
-    const [totalPengusulanMitra, totalPenolakanMitra, totalDiterimaHSSEMitra] = 
-    await Promise.all([
 
+const fetchDashboardIkhtisar = async () => {
+  try {
+    const [
+      totalPengusulanMitra,
+      totalPenolakanMitra,
+      totalDiterimaHSSEMitra,
+      totalVerifikasiUser,
+
+    ] = await Promise.all([
       query("SELECT (SELECT COUNT(*) FROM pb_table) + (SELECT COUNT(*) FROM pa_table) + (SELECT COUNT(*) FROM psb_table) + (SELECT COUNT(*) FROM hseplan_table) AS totalPengusulan"),
-
       query("SELECT (SELECT COUNT(*) FROM psb_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak') + (SELECT COUNT(*) FROM pb_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak') + (SELECT COUNT(*) FROM pa_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak') + (SELECT COUNT(*) FROM hseplan_table WHERE status_mitra = 'Ditolak') AS totalDitolakCount"),
+      query("SELECT (SELECT COUNT(*) FROM psb_table WHERE status_mitra2 = 'Diterima') + (SELECT COUNT(*) FROM pb_table WHERE status_mitra2 = 'Diterima') + (SELECT COUNT(*) FROM pa_table WHERE status_mitra2 = 'Diterima') + (SELECT COUNT(*) FROM hseplan_table WHERE status_mitra = 'Diterima') AS totalDiterimaHSSECount"),
+      query("SELECT (SELECT COUNT(*) FROM psb_table WHERE status_mitra = 'Diterima') + (SELECT COUNT(*) FROM pb_table WHERE status_mitra = 'Diterima') + (SELECT COUNT(*) FROM hseplan_table WHERE status_mitra = 'Diterima') + (SELECT COUNT(*) FROM pa_table WHERE status_mitra = 'Diterima') AS total_countUser"),
 
-      query("SELECT (SELECT COUNT(*) FROM psb_table WHERE status_mitra2 = 'Diterima') + (SELECT COUNT(*) FROM pb_table WHERE status_mitra2 = 'Diterima') + (SELECT COUNT(*) FROM pa_table WHERE status_mitra2 = 'Diterima') + (SELECT COUNT(*) FROM hseplan_table WHERE status_mitra = 'Diterima') AS totalDiterimaHSSECount")
     ]);
 
     const totalPengusulan = totalPengusulanMitra[0].totalPengusulan;
     const totalDitolakCount = totalPenolakanMitra[0].totalDitolakCount;
     const totalDiterimaHSSECount = totalDiterimaHSSEMitra[0].totalDiterimaHSSECount;
-    return{
+    const total_countUser = totalVerifikasiUser[0].total_countUser;
+
+
+    return {
       totalPengusulan,
       totalDitolakCount,
-      totalDiterimaHSSECount
-    }
-    
-  }
-  catch (err) {
+      totalDiterimaHSSECount,
+      total_countUser,
+
+    };
+  } catch (err) {
     throw err;
   }
-}
-
+};
 
 const fetchTotalBerkas = async() => {
 
@@ -199,43 +201,72 @@ const fetchTotalBerkas = async() => {
 
 }
 
-const fetchComplexBerkas = async() => {
+const fetchVerifyUser = async () => {
+  try {
+    const [      totalVerifyUserPSB,
+      totalVerifyUserPB,
+      totalVerifyUserPA,
+      totalVerifyUserHSEPLAN,] =
+      await Promise.all([
+        query("SELECT COUNT(id_psb) AS user_psb_verify FROM psb_table WHERE status_mitra = 'Diterima'"),
+        query("SELECT COUNT(id_pb) AS user_pb_verify FROM pb_table WHERE status_mitra = 'Diterima'"),
+        query("SELECT COUNT(id_hse) AS user_hseplan_verify FROM hseplan_table WHERE status_mitra = 'Diterima'"),
+        query("SELECT SUM(status_mitra = 'Diterima') AS user_pa_verify FROM pa_table"),
+      ]);
 
-    try {
-      const [totalDitolakHSE, totalDitolakPSB, totalDitolakPB,totalDitolakPA] =
-        await Promise.all([
-          query(
-            "SELECT COUNT(*) as psbDitolakCount  FROM psb_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak';"
-          ),
-          query(
-            "SELECT COUNT(*) as pbDitolakCount  FROM pb_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak';"
-          ),
-          query(
-            "SELECT COUNT(*) as paDitolakCount  FROM pa_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak';"
-          ),
-          query(
-            "SELECT COUNT(*) as hseplanDitolakCount  FROM hseplan_table WHERE status_mitra = 'Ditolak';"
-  
-          ),
-        ]);
-  
-        const hseplanDitolakCount = totalDitolakHSE[0].hseplanDitolakCount;
-        const psbDitolakCount = totalDitolakPSB[0].psbDitolakCount;
-        const paDitolakCount = totalDitolakPA[0].paDitolakCount;
-        const pbDitolakCount = totalDitolakPB[0].pbDitolakCount;
-  
-      return {
-        hseplanDitolakCount,
-        psbDitolakCount,
-        paDitolakCount,
-        pbDitolakCount,
-      };
-    } 
-    catch (err) {
-      throw err;
-    }
-  
+
+      const user_psb_verify = totalVerifyUserPSB[0].user_psb_verify;
+      const user_pb_verify = totalVerifyUserPB[0].user_pb_verify;
+      const user_hseplan_verify = totalVerifyUserHSEPLAN[0].user_hseplan_verify;
+      const user_pa_verify = totalVerifyUserPA[0].user_pa_verify;
+
+
+    return {
+      user_psb_verify,
+      user_pb_verify,
+      user_hseplan_verify,
+      user_pa_verify,
+
+    };
+  } catch (err) {
+    throw err;
   }
+};
+
+const fetchVerifyHSSE = async () => {
+  try {
+    const [      totalVerifyHSSEPSB,
+      totalVerifyHSSEPB,
+      totalVerifyHSSEPA,
+      totalVerifyHSSEHSEPLAN,] =
+      await Promise.all([
+        query("SELECT COUNT(*) AS hssePAVerify FROM pa_table WHERE status_mitra2 = 'Diterima'"),
+        query("SELECT COUNT(*) AS hssePSBVerify FROM psb_table WHERE status_mitra2 = 'Diterima'"),
+        query("SELECT COUNT(*) AS hssePBVerify FROM pb_table WHERE status_mitra2 = 'Diterima'"),
+
+      ]);
+
+
+      const hssePAVerify = totalVerifyHSSEPA[0].hssePAVerify;
+      const hssePSBVerify = totalVerifyHSSEPSB[0].userPSBVerify;
+      const hssePBVerify = totalVerifyHSSEPB[0].userPBVerify;
+      // const user_pa_verify = totalVerifyUserPA[0].user_pa_verify;
+
+
+    return {
+      hssePAVerify,
+      hssePSBVerify,
+      hssePBVerify,
+
+
+    };
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+
 
 
 exports.berandaWeb = (req, res) => {
@@ -253,7 +284,7 @@ exports.berandaAdmin = async (req, res) => {
   if (!req.session.userData || !req.session.userData.id_verifikator) {
     // Jika pengguna belum login, redirect ke halaman login
     return res.redirect('/login-pertamina');
-}
+  }
 
   
   const { blmDiprosesCountHSE, diterimaCountHSE, ditolakCountHSE } =
@@ -278,17 +309,19 @@ exports.berandaAdmin = async (req, res) => {
   const {
     totalPengusulan,
     totalDitolakCount,
-    totalDiterimaHSSECount
+    totalDiterimaHSSECount,
+    total_countUser,
+
     
   } = await fetchDashboardIkhtisar();
 
-  const {
-    hseplanDitolakCount,
-    psbDitolakCount,
-    paDitolakCount,
-    pbDitolakCount,
-    
-  } = await fetchComplexBerkas();
+  const {user_psb_verify, user_pb_verify, user_hseplan_verify, user_pa_verify,} = await fetchVerifyUser();
+
+
+  const {      hssePAVerify,
+    hssePSBVerify,
+    hssePBVerify,} = await fetchVerifyHSSE();
+
 
   
   const { id_verifikator } = req.session.userData;
@@ -311,15 +344,16 @@ exports.berandaAdmin = async (req, res) => {
               totalPengusulan,
               totalDitolakCount,
               totalDiterimaHSSECount,
+              total_countUser,
+
+              user_psb_verify,
+              user_pb_verify,
+              user_hseplan_verify,
+              user_pa_verify,
 
               //end khusus....
 
               //ditolak ikhtisar data
-
-              hseplanDitolakCount,
-              psbDitolakCount,
-              paDitolakCount,
-              pbDitolakCount,
 
 
               //end ditolak ikhitsar data
@@ -330,6 +364,10 @@ exports.berandaAdmin = async (req, res) => {
               diterimaCountHSE,
               ditolakCountHSE,
               hseplanCount,
+
+              hssePAVerify,
+              hssePSBVerify,
+              hssePBVerify,
           
               //PSB
           
