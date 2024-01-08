@@ -39,13 +39,6 @@ router.get('/data/pa-data', mitraController.readPAData);
 
 
 
-// DETAIL HSE PLAN
-// router.get('/data/detail-hse', mitraController.detailHSEData);
-
-// router.get('/data/detail-hse', (req,res)=>{
-//   res.render('detailhse');
-// });
-
 
 router.get('/data/detail-hse/:id_hse',  mitraController.detailHSEData);
 router.get('/data/detail-psb/:id_psb',  mitraController.detailPSBData);

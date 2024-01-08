@@ -123,6 +123,39 @@ const fetchDataPA = async () => {
   }
 };
 
+const fetchDashboardIkhtisar = async()=>{
+  // SELECT
+  //   (SELECT COUNT(*) FROM pb_table) +
+  //   (SELECT COUNT(*) FROM pa_table) +
+  //   (SELECT COUNT(*) FROM psb_table) +
+  //   (SELECT COUNT(*) FROM hseplan_table) AS totalRecordCount;
+
+  try{
+    const [totalPengusulanMitra, totalPenolakanMitra, totalDiterimaHSSEMitra] = 
+    await Promise.all([
+
+      query("SELECT (SELECT COUNT(*) FROM pb_table) + (SELECT COUNT(*) FROM pa_table) + (SELECT COUNT(*) FROM psb_table) + (SELECT COUNT(*) FROM hseplan_table) AS totalPengusulan"),
+
+      query("SELECT (SELECT COUNT(*) FROM psb_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak') + (SELECT COUNT(*) FROM pb_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak') + (SELECT COUNT(*) FROM pa_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak') + (SELECT COUNT(*) FROM hseplan_table WHERE status_mitra = 'Ditolak') AS totalDitolakCount"),
+
+      query("SELECT (SELECT COUNT(*) FROM psb_table WHERE status_mitra2 = 'Diterima') + (SELECT COUNT(*) FROM pb_table WHERE status_mitra2 = 'Diterima') + (SELECT COUNT(*) FROM pa_table WHERE status_mitra2 = 'Diterima') + (SELECT COUNT(*) FROM hseplan_table WHERE status_mitra = 'Diterima') AS totalDiterimaHSSECount")
+    ]);
+
+    const totalPengusulan = totalPengusulanMitra[0].totalPengusulan;
+    const totalDitolakCount = totalPenolakanMitra[0].totalDitolakCount;
+    const totalDiterimaHSSECount = totalDiterimaHSSEMitra[0].totalDiterimaHSSECount;
+    return{
+      totalPengusulan,
+      totalDitolakCount,
+      totalDiterimaHSSECount
+    }
+    
+  }
+  catch (err) {
+    throw err;
+  }
+}
+
 
 const fetchTotalBerkas = async() => {
 
@@ -144,6 +177,7 @@ const fetchTotalBerkas = async() => {
         ),
         query(
           "SELECT COUNT(*) as pbCount FROM pb_table"
+
         ),
       ]);
 
@@ -158,11 +192,51 @@ const fetchTotalBerkas = async() => {
       paCount,
       pbCount,
     };
-  } catch (err) {
+  } 
+  catch (err) {
     throw err;
   }
 
 }
+
+const fetchComplexBerkas = async() => {
+
+    try {
+      const [totalDitolakHSE, totalDitolakPSB, totalDitolakPB,totalDitolakPA] =
+        await Promise.all([
+          query(
+            "SELECT COUNT(*) as psbDitolakCount  FROM psb_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak';"
+          ),
+          query(
+            "SELECT COUNT(*) as pbDitolakCount  FROM pb_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak';"
+          ),
+          query(
+            "SELECT COUNT(*) as paDitolakCount  FROM pa_table WHERE status_mitra = 'Ditolak' AND status_mitra2 = 'Ditolak';"
+          ),
+          query(
+            "SELECT COUNT(*) as hseplanDitolakCount  FROM hseplan_table WHERE status_mitra = 'Ditolak';"
+  
+          ),
+        ]);
+  
+        const hseplanDitolakCount = totalDitolakHSE[0].hseplanDitolakCount;
+        const psbDitolakCount = totalDitolakPSB[0].psbDitolakCount;
+        const paDitolakCount = totalDitolakPA[0].paDitolakCount;
+        const pbDitolakCount = totalDitolakPB[0].pbDitolakCount;
+  
+      return {
+        hseplanDitolakCount,
+        psbDitolakCount,
+        paDitolakCount,
+        pbDitolakCount,
+      };
+    } 
+    catch (err) {
+      throw err;
+    }
+  
+  }
+
 
 exports.berandaWeb = (req, res) => {
   const berandaTitle = "Beranda | SIBER Pertamina Limau Field"; // Gantilah dengan data atau variabel yang sesuai
@@ -201,6 +275,21 @@ exports.berandaAdmin = async (req, res) => {
     pbCount,
   } = await fetchTotalBerkas();
 
+  const {
+    totalPengusulan,
+    totalDitolakCount,
+    totalDiterimaHSSECount
+    
+  } = await fetchDashboardIkhtisar();
+
+  const {
+    hseplanDitolakCount,
+    psbDitolakCount,
+    paDitolakCount,
+    pbDitolakCount,
+    
+  } = await fetchComplexBerkas();
+
   
   const { id_verifikator } = req.session.userData;
   
@@ -216,7 +305,26 @@ exports.berandaAdmin = async (req, res) => {
           return res.render("dashboardAdmin", {
               DashboardAdminTitle,
               userData: results[0],
+
+
+              //Khusus 
+              totalPengusulan,
+              totalDitolakCount,
+              totalDiterimaHSSECount,
+
+              //end khusus....
+
+              //ditolak ikhtisar data
+
+              hseplanDitolakCount,
+              psbDitolakCount,
+              paDitolakCount,
+              pbDitolakCount,
+
+
+              //end ditolak ikhitsar data
           
+
               //HSE
               blmDiprosesCountHSE,
               diterimaCountHSE,
@@ -240,7 +348,7 @@ exports.berandaAdmin = async (req, res) => {
               blmDiprosesCountPA,
               diterimaCountPA,
               ditolakCountPA,
-              paCount
+              paCount,
             });
       } else {
           return res.status(404).send('User not found');
@@ -267,14 +375,14 @@ exports.CheckingPIN = (req, res) => {
 
     // Pemetaan antara password dan username
     const passwordUsernameMap = {
-        '1234567890': 'pertamina',
+
         '8642097531': 'ICT',
         '3210987654': 'HSSE',
         '2468013579' : 'WIWS',
         '1098765432' : 'RAM',
         '5678901234' : 'PE',
         '8765432109' : 'PRODUKSI',
-        '5432109876' : 'SCM',
+        '5432109876' : 'SCM'
         
         // Tambahkan lebih banyak pasangan password dan username jika diperlukan
     };

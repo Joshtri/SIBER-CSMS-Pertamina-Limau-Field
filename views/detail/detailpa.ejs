@@ -202,9 +202,9 @@
         <% if (status_mitra === "Belum Diproses") { %>
           <strong class="text-warning"><%= status_mitra %></strong>
         <% } else if (status_mitra === "Diterima") { %>
-          <strong class="text-success"><%= status_mitra %></strong>
+          <strong class="text-success">Lulus</strong>
         <% } else if(status_mitra === "Ditolak") { %>
-          <strong class="text-danger"><%= status_mitra %></strong>
+          <strong class="text-danger">Tidak Lulus</strong>
         <% } %> 
       </div>
     </div>
@@ -404,28 +404,87 @@
 
                 <hr>
 
-                <div class="form-group col-lg-4">
+                <h3>Verifikasi Mitra</h3>
+                <div class="row d-flex">
+                  <div class="form-group col-lg-6">
                     <label for="" class="form-label">Progres Mitra : </label>
-                    <!-- <p><%= status_mitra %></p> -->
-                    <% if (status_mitra === "Belum Diproses") { %>
-                        <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
-                            <i class="fa-solid fa-spinner fa-spin"></i>
-                        </button>
-                        
-                    <% }else if (status_mitra === "Diterima") { %>
-                        <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Lulus" data-bs-toggle="tooltip">
-                            <i class="fa-solid fa-check"></i>
-                        </button>
-                    <% } else if(status_mitra === "Ditolak") { %>
-                        <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Tidak Lulus" data-bs-toggle="tooltip">
-                            <i class="fa-solid fa-check"></i>
-                        </button>
-                    <% } %>
-                
-
-                    <!-- <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip"><i class="fa-solid fa-square-check"></i></button> -->
-                    <!-- <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip"><i class="fa-solid fa-spinner fa-spin"></i></button> -->
-                </div>
+                    <div class="card">
+                      <div class="card-body">
+  
+  
+                        <table class="table table-sm table-hover">
+                          <thead class="text-center">
+                            <th>HSE</th>
+                            <th>
+                              <% if (fungsi_dituju2 === 1) { %>
+                                ICT
+                              <% } else if (fungsi_dituju2 === 2) { %>
+                                WIWS
+                              <% } else if (fungsi_dituju2 === 3) { %>
+                                PE
+                              <% } else if (fungsi_dituju2 === 4) { %>
+                                RAM
+                              <% } else if (fungsi_dituju2 === 5) { %>
+                                HSSE
+                              <% } else if (fungsi_dituju2 === 6) { %>
+                                PRODUKSI
+                              <% } else if (fungsi_dituju2 === 7) { %>
+                                SCM
+                              <% } else { %>
+                                KOSONG
+                              <% } %>
+  
+  
+                            </th>
+                          </thead>
+  
+                          <tbody class="text-center">
+                            <tr>
+                              <td>
+                                <!-- ini utk hse sbg status mitra 2 knp 2, karena baru saja ditambah, -->
+                                <% if (status_mitra2 === "Belum Diproses") { %>
+                                  <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
+                                      <i class="fa-solid fa-spinner fa-spin"></i>
+                                  </button>
+                                  
+                              <% }else if (status_mitra2 === "Diterima") { %>
+                                  <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Lulus" data-bs-toggle="tooltip">
+                                      <i class="fa-solid fa-check"></i>
+                                  </button>
+                              <% } else if(status_mitra2 === "Ditolak") { %>
+                                  <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Tidak Lulus" data-bs-toggle="tooltip">
+                                    <i class="fa-solid fa-x fa-beat-fade"></i>
+                                  </button>
+                              <% } %>
+                              </td>
+  
+  
+                              <td>
+                                <% if (status_mitra === "Belum Diproses") { %>
+                                  <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
+                                      <i class="fa-solid fa-spinner fa-spin"></i>
+                                  </button>
+                                  
+                              <% }else if (status_mitra === "Diterima") { %>
+                                  <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Lulus" data-bs-toggle="tooltip">
+                                      <i class="fa-solid fa-check"></i>
+                                  </button>
+                              <% } else if(status_mitra === "Ditolak") { %>
+                                  <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Tidak Lulus" data-bs-toggle="tooltip">
+                                    <i class="fa-solid fa-x fa-beat-fade"></i>
+                                  </button>
+                              <% } %>
+                              </td>
+  
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+  
+                    <!-- end card. -->
+  
+                  </div>
 
                 <div class="form-group col-md-6 mt-3">
                   <label for="name">Penilaian</label>

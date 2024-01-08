@@ -781,7 +781,7 @@ exports.detailPSBData = (req, res) => {
   db.query(sqlRead, [id_psb], (err, results) => {
     if (err) {
       throw err;
-    } else if(!err) {
+    } else if(results.length > 0) {
       // Assuming that 'risk_level' and 'nama_mitra' are columns in your hseplan_table
       const {
          risk_assessment_id, 
@@ -796,6 +796,7 @@ exports.detailPSBData = (req, res) => {
          tanggal_penilaian,
          tempat_penilaian,
          status_mitra,
+         status_mitra2,
          fungsi_dituju2,
 
          //file uploads !!!!! --- mostly important
@@ -821,6 +822,7 @@ exports.detailPSBData = (req, res) => {
         no_hp,
         alamat_email,
         status_mitra,
+        status_mitra2,
         fungsi_dituju2,
         files: results[0], 
         results
@@ -844,7 +846,7 @@ exports.detailPBData = (req, res) => {
   db.query(sqlRead, [id_pb], (err, results) => {
     if (err) {
       throw err;
-    } else if(!err) {
+    } else if(results.length > 0) {
       // Assuming that 'risk_level' and 'nama_mitra' are columns in your hseplan_table
       const {
          risk_assessment_id, 
@@ -857,6 +859,7 @@ exports.detailPBData = (req, res) => {
          no_hp,
          alamat_email,
          status_mitra,
+         status_mitra2,
          fungsi_dituju2,
 
          //file uploads !!!!! --- mostly important
@@ -876,6 +879,7 @@ exports.detailPBData = (req, res) => {
         nama_kontraktor,
         tanggal_penilaian,
         status_mitra,
+        status_mitra2,
         fungsi_dituju2,
         nilai_total,
         keterangan_verifikasi,
@@ -904,7 +908,7 @@ exports.detailPAData = (req, res) => {
   db.query(sqlRead, [id_pa], (err, results) => {
     if (err) {
       throw err;
-    } else if(!err) {
+    } else if(results.length > 0) {
       // Assuming that 'risk_level' and 'nama_mitra' are columns in your hseplan_table
       const {
          risk_assessment_id, 
@@ -918,6 +922,7 @@ exports.detailPAData = (req, res) => {
          temuan,
          alamat_email,
          status_mitra,
+         status_mitra2,
          fungsi_dituju2,
 
          //file uploads !!!!! --- mostly important
@@ -941,11 +946,12 @@ exports.detailPAData = (req, res) => {
         temuan,
         alamat_email,
         status_mitra,
+        status_mitra2,
         fungsi_dituju2,
         files: results[0], 
         results
       });
-      console.log(results);
+      // console.log(results);m
     }
   });
 }
@@ -1008,29 +1014,91 @@ exports.updateHSEdata = (req,res)=>{
 }
 
 
-//GET DATA psb TO UPDATE!!
-exports.updatePSBdata = (req,res)=>{
+// //GET DATA psb TO UPDATE!!
+// exports.updatePSBdata = (req,res)=>{
   
+//   const id_psb = req.params.id_psb;
+
+
+//   if (!req.session.userData || !req.session.userData.id_verifikator) {
+//     // Jika pengguna belum login, redirect ke halaman login
+//     return res.redirect('/login-pertamina');
+//   }
+
+  
+  
+//   const sqlRead = "SELECT * FROM psb_table WHERE id_psb = ?";
+
+
+//   db.query(sqlRead,[id_psb],(err,results)=>{
+//     if(err){
+//       throw err;
+//     }
+
+//     else if(!err){
+//       // Assuming that 'risk_level' and 'nama_mitra' are columns in your hseplan_table
+//       const {
+//         risk_assessment_id, 
+//         risk_level, 
+//         nama_pekerjaan,
+//         nomor_kontrak,
+//         nama_kontraktor,
+//         tanggal_penilaian,
+//         nilai_total,
+//         keterangan_verifikasi,
+//         status_mitra,
+//         status_mitra2,
+//         fungsi_dituju1,
+//         fungsi_dituju2
+                       
+//       } = results[0]; // Assuming there's only one result
+
+//      // Render the detailhse view with the details
+//       res.render('update_psb', {
+//         id_psb,
+//         risk_assessment_id,
+//         risk_level,
+//         nama_pekerjaan,
+//         nomor_kontrak,
+//         nama_kontraktor,
+//         tanggal_penilaian,
+//         status_mitra,
+//         status_mitra2,
+//         fungsi_dituju1, 
+//         fungsi_dituju2,
+//         nilai_total,
+//         keterangan_verifikasi,
+//         files: results[0], 
+//         results,
+//         notifSuksesPSBUpdate : false
+//       });
+
+//     }
+//   });
+  
+// }
+
+// ...
+
+//GET DATA psb TO UPDATE!!
+exports.updatePSBdata = (req, res) => {
   const id_psb = req.params.id_psb;
 
   if (!req.session.userData || !req.session.userData.id_verifikator) {
     // Jika pengguna belum login, redirect ke halaman login
     return res.redirect('/login-pertamina');
   }
-  
+
   const sqlRead = "SELECT * FROM psb_table WHERE id_psb = ?";
 
-
-  db.query(sqlRead,[id_psb],(err,results)=>{
-    if(err){
+  db.query(sqlRead, [id_psb], (err, results) => {
+    if (err) {
       throw err;
-    }
-
-    else if(!err){
+    } else if (!err) {
       // Assuming that 'risk_level' and 'nama_mitra' are columns in your hseplan_table
       const {
-        risk_assessment_id, 
-        risk_level, 
+        risk_assessment_id,
+        risk_level,
         nama_pekerjaan,
         nomor_kontrak,
         nama_kontraktor,
@@ -1038,10 +1106,12 @@ exports.updatePSBdata = (req,res)=>{
         nilai_total,
         keterangan_verifikasi,
         status_mitra,
-                       
+        status_mitra2,
+        fungsi_dituju1,
+        fungsi_dituju2,
       } = results[0]; // Assuming there's only one result
 
-     // Render the detailhse view with the details
+      // Render the detailhse view with the details
       res.render('update_psb', {
         id_psb,
         risk_assessment_id,
@@ -1051,18 +1121,20 @@ exports.updatePSBdata = (req,res)=>{
         nama_kontraktor,
         tanggal_penilaian,
         status_mitra,
+        status_mitra2,
+        fungsi_dituju1,
+        fungsi_dituju2,
         nilai_total,
         keterangan_verifikasi,
-        files: results[0], 
+        files: results[0],
         results,
-        notifSuksesPSBUpdate : false
+        notifSuksesPSBUpdate: false,
+        userData: req.session.userData, // Menyertakan data session.userData ke dalam objek yang dikirim ke view
       });
-
     }
   });
-  
- 
-}
+};
+
 
 
 //GET DATA pa TO UPDATE!!
@@ -1092,6 +1164,10 @@ exports.updatePAdata = (req,res)=>{
         nomor_kontrak,
         tanggal_penilaian,
         status_mitra,
+        status_mitra2,
+        fungsi_dituju1,
+        fungsi_dituju2,
+        temuan,
         nilai_total,
         keterangan_verifikasi,
                        
@@ -1106,11 +1182,16 @@ exports.updatePAdata = (req,res)=>{
         nomor_kontrak,
         tanggal_penilaian,
         status_mitra,
+        status_mitra2,
+        fungsi_dituju1,
+        fungsi_dituju2,
+        temuan,
         nilai_total,
         keterangan_verifikasi,
         files: results[0], 
         results,
-        notifSuksesPAUpdate : false
+        notifSuksesPAUpdate : false,
+        userData: req.session.userData, // Menyertakan data session.userData ke dalam objek yang dikirim ke view
       });
 
     }
@@ -1149,6 +1230,10 @@ exports.updatePBdata = (req,res)=>{
         nama_kontraktor,
         tanggal_penilaian,
         status_mitra,
+        status_mitra2,
+        fungsi_dituju1,
+        fungsi_dituju2,
+        temuan,
         nilai_total,
         keterangan_verifikasi,
                        
@@ -1164,11 +1249,16 @@ exports.updatePBdata = (req,res)=>{
         nama_kontraktor,
         tanggal_penilaian,
         status_mitra,
+        status_mitra2,
+        fungsi_dituju1,
+        fungsi_dituju2,
+        temuan,
         nilai_total,
         keterangan_verifikasi,
         files: results[0], 
         results,
-        notifSuksesPBUpdate : false
+        notifSuksesPBUpdate : false,
+        userData: req.session.userData, // Menyertakan data session.userData ke dalam objek yang dikirim ke view
       });
 
     }
@@ -1211,17 +1301,68 @@ exports.postUpdateHSEPdata = (req, res) => {
 
 
 //POST DATA psb TO UPDATE!!
-exports.postUpdatePSBdata = (req,res)=>{
-  const { id_psb,status_mitra, nilai_total, keterangan_verifikasi } = req.body;
+// exports.postUpdatePSBdata = (req,res)=>{
+//   const { id_psb,status_mitra, status_mitra2, nilai_total, keterangan_verifikasi } = req.body;
 
-  if (!req.session.userData || !req.session.userData.id_verifikator) {
+//   if (!req.session.userData || !req.session.userData.id_verifikator) {
+//     // Jika pengguna belum login, redirect ke halaman login
+//     return res.redirect('/login-pertamina');
+//   }
+
+//   const sqlUpdate = 'UPDATE psb_table SET status_mitra = ?, status_mitra2 = ?, nilai_total = ?, keterangan_verifikasi = ? WHERE id_psb = ?';
+//   const values = [status_mitra , status_mitra2, nilai_total, keterangan_verifikasi, id_psb];
+
+//   db.query(sqlUpdate, values, (err, results) => {
+//     if (err) {
+//       console.error('Terjadi kesalahan saat memperbarui data:', err);
+//       res.status(500).send('Kesalahan Server Internal');
+//     } else {
+//       // Kirim skrip JavaScript sebagai respons
+//       const script = `
+//         <script>
+//           alert('Data berhasil diperbarui!');
+//           window.location.href = '/data/update-psb/${id_psb}'; // Ganti dengan URL halaman Anda
+//         </script>`;
+//       res.send(script);
+
+
+//       // console.log('Update Berhasil:', results); // Tambahkan ini untuk melihat hasil query
+//       // res.send('Update Berhasil :)');
+//       // console.log('ID HSE yang Diterima:', id_psb);
+//       // console.log('Data yang Diterima:', req.body);
+
+//       // console.log('Query SQL:', sqlUpdate, ' dengan Nilai:', values);
+
+//     }
+//   });
+// }
+
+
+// POST DATA psb TO UPDATE!!
+exports.postUpdatePSBdata = (req, res) => {
+
+  const { id_psb, nilai_total, keterangan_verifikasi } = req.body;
+  const { userData } = req.session;
+
+  if (!userData || !userData.id_verifikator) {
     // Jika pengguna belum login, redirect ke halaman login
     return res.redirect('/login-pertamina');
   }
-  
 
-  const sqlUpdate = 'UPDATE psb_table SET status_mitra = ?, nilai_total = ?, keterangan_verifikasi = ? WHERE id_psb = ?';
-  const values = [status_mitra , nilai_total, keterangan_verifikasi, id_psb];
+  const sqlUpdate = 'UPDATE psb_table SET ? WHERE id_psb = ?';
+  let updateFields = { nilai_total, keterangan_verifikasi };
+
+  if (userData.username === 'HSSE') {
+    // Jika pengguna adalah HSSE, maka hanya izinkan update status_mitra2
+    const { status_mitra2 } = req.body;
+    updateFields = { status_mitra2, ...updateFields };
+  } else {
+    // Jika bukan HSSE, izinkan update status_mitra
+    const { status_mitra } = req.body;
+    updateFields = { status_mitra, ...updateFields };
+  }
+
+  const values = [updateFields, id_psb];
 
   db.query(sqlUpdate, values, (err, results) => {
     if (err) {
@@ -1236,31 +1377,43 @@ exports.postUpdatePSBdata = (req,res)=>{
         </script>`;
       res.send(script);
 
-
-      // console.log('Update Berhasil:', results); // Tambahkan ini untuk melihat hasil query
-      // res.send('Update Berhasil :)');
-      // console.log('ID HSE yang Diterima:', id_psb);
-      // console.log('Data yang Diterima:', req.body);
-
-      // console.log('Query SQL:', sqlUpdate, ' dengan Nilai:', values);
-
+      // Tambahkan ini untuk melihat hasil query
+      // console.log('Update Berhasil:', results);
     }
   });
-}
+};
+
 
 
 //POST DATA PA TO UPDATE!!
 exports.postUpdatePAdata = (req,res)=>{
-  const { id_pa,status_mitra, nilai_total, keterangan_verifikasi } = req.body;
+
+  const { id_pa, nilai_total, keterangan_verifikasi } = req.body;
+  const {userData} = req.session;
 
   if (!req.session.userData || !req.session.userData.id_verifikator) {
     // Jika pengguna belum login, redirect ke halaman login
     return res.redirect('/login-pertamina');
   }
-  
 
-  const sqlUpdate = 'UPDATE pa_table SET status_mitra = ?, nilai_total = ?, keterangan_verifikasi = ? WHERE id_pa = ?';
-  const values = [status_mitra , nilai_total, keterangan_verifikasi, id_pa];
+
+  const sqlUpdate = 'UPDATE pa_table SET ? WHERE id_pa = ?';
+  let updateFields = {nilai_total, keterangan_verifikasi};
+
+  if(userData.username === 'HSSE'){
+    const {status_mitra2} =req.body;
+    updateFields = {status_mitra2, ...updateFields}
+  }
+  else {
+    // Jika bukan HSSE, izinkan update status_mitra
+    const { status_mitra } = req.body;
+    updateFields = { status_mitra, ...updateFields };
+  }
+  
+  
+  // const values = [status_mitra , nilai_total, keterangan_verifikasi, id_pa];
+
+  const values = [updateFields, id_pa];
 
   db.query(sqlUpdate, values, (err, results) => {
     if (err) {
@@ -1286,15 +1439,26 @@ exports.postUpdatePAdata = (req,res)=>{
 //POST DATA pb TO UPDATE!!
 exports.postUpdatePBdata = (req,res)=>{
   const { id_pb,status_mitra, nilai_total, keterangan_verifikasi } = req.body;
+  const {userData} = req.session;
 
   if (!req.session.userData || !req.session.userData.id_verifikator) {
     // Jika pengguna belum login, redirect ke halaman login
     return res.redirect('/login-pertamina');
   }
+  const sqlUpdate = 'UPDATE pb_table SET ? WHERE id_pb = ?';
+  let updateFields = {nilai_total, keterangan_verifikasi};
+
+  if(userData.username === 'HSSE'){
+    const {status_mitra2} =req.body;
+    updateFields = {status_mitra2, ...updateFields}
+  }
+  else{
+    const {status_mitra} =req.body;
+    updateFields = {status_mitra, ...updateFields}
+  }
   
 
-  const sqlUpdate = 'UPDATE pb_table SET status_mitra = ?, nilai_total = ?, keterangan_verifikasi = ? WHERE id_pb = ?';
-  const values = [status_mitra, nilai_total, keterangan_verifikasi, id_pb];
+  const values = [updateFields, id_pb];
 
   db.query(sqlUpdate, values, (err, results) => {
     if (err) {

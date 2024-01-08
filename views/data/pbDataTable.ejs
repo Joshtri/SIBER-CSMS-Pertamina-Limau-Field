@@ -236,21 +236,21 @@
                             <td><%= dataPB[i].tanggal_penilaian %></td>
                             <td><%= dataPB[i].alamat_email%></td>
                             <td>
-                              <% if (dataPB[i].status_mitra === "Belum Diproses") { %>
-                                <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
-                                    <i class="fa-solid fa-spinner fa-spin"></i>
-                                </button>
-                                
-                              <% }else if (dataPB[i].status_mitra === "Diterima") { %>
+                              <% if (dataPB[i].status_mitra === "Belum Diproses" || dataPB[i].status_mitra2 === "Belum Diproses") { %>
+                                  <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">
+                                      <i class="fa-solid fa-spinner fa-spin"></i>
+                                  </button>
+  
+                              <% } else if (dataPB[i].status_mitra === "Diterima" && dataPB[i].status_mitra2 === "Diterima") { %>
                                   <button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Lulus" data-bs-toggle="tooltip">
                                       <i class="fa-solid fa-check"></i>
                                   </button>
-                              <% } else if(dataPB[i].status_mitra === "Ditolak") { %>
+                              <% } else if (dataPB[i].status_mitra === "Ditolak" || dataPB[i].status_mitra2 === "Ditolak") { %>
                                   <button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Tidak Lulus" data-bs-toggle="tooltip">
-                                    <i class="fa-solid fa-x fa-beat-fade"></i>
+                                      <i class="fa-solid fa-x fa-beat-fade"></i>
                                   </button>
                               <% } %>
-                            </td>
+                            </td> 
                             <!-- <td><button type="button" class="btn btn-sm btn-status-red custom-tooltip" data-bs-title="Verifikasi : Ditolak" data-bs-toggle="tooltip"><i class="fa-solid fa-square-xmark"></i></button></td> -->
                             
                             <!-- <td><button type="button" class="btn btn-sm btn-status-green custom-tooltip" data-bs-title="Verifikasi : Diterima" data-bs-toggle="tooltip"><i class="fa-solid fa-square-check"></i></button></td> -->
@@ -262,6 +262,8 @@
 
                                 <a href="/data/update-pb/<%= dataPB[i].id_pb %>" class="btn btn-sm border-shadow update custom-tooltip" id="set_edit" data-bs-toggle="tooltip" data-bs-title="Verifikasi Data" data-bs-placement="bottom"><i class="fa-solid fa-pen-to-square"></i>
                                 </a>
+
+                                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="btn btn-sm border-shadow update custom-tooltip" id="set_edit" data-bs-toggle="tooltip" data-bs-title="Kirim Email" data-bs-placement="bottom" target="_blank"><i class="fa-regular fa-envelope"></i></a>
                                
                                 <!-- <a class="btn border-shadow delete" href="" >
                                     <span class="text-gradient"><i class="bi bi-trash2-fill"></i></span>
