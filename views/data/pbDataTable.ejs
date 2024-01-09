@@ -213,14 +213,21 @@
         </div>
         
         <div class="container mt-1">
+          <style>
+            .custom-table td,
+            .custom-table th {
+                font-size: 14px; /* Adjust the font size as needed */
+            }
+          </style>
 
-            <table class="table table-sm table-hover" id="data-table-view">
+            <table class="table table-sm table-hover custom-table" id="data-table-view">
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th>No</th>
                         <th>Nama Kontraktor</th>  <!-- 🧘 --> 
                         <th>Risk Level</th>
                         <th>Tanggal Penilaian</th>
+                        <th>Penilaian</th>
                         <th>Email Mitra</th>
                         <th>Progres</th>
                         <th>Aksi</th>
@@ -234,7 +241,11 @@
                             <td class="text-capitalize"><%= dataPB[i].nama_kontraktor %></td>
                             <td class="text-capitalize"><%= dataPB[i].risk_level %></td>
                             <td><%= dataPB[i].tanggal_penilaian %></td>
-                            <td><%= dataPB[i].alamat_email%></td>
+                            <td>
+                              <%= dataPB[i].nilai_total !== undefined ? dataPB[i].nilai_total : "Belum Dinilai" %>
+                            </td>
+                          
+                            <td><%= dataPB[i].alamat_email %></td>
                             <td>
                               <% if (dataPB[i].status_mitra === "Belum Diproses" || dataPB[i].status_mitra2 === "Belum Diproses") { %>
                                   <button type="button" class="btn btn-sm btn-status-warm custom-tooltip" data-bs-title="Verifikasi : Diproses" data-bs-toggle="tooltip">

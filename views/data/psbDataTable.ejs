@@ -213,14 +213,21 @@
         </div>
         
         <div class="container mt-1">
+          <style>
+            .custom-table td,
+            .custom-table th {
+                font-size: 14px; /* Adjust the font size as needed */
+            }
+          </style>
 
-          <table class="table table-sm table-hover" id="data-table-view">
+          <table class="table table-sm table-hover custom-table" id="data-table-view">
             <thead class="thead-dark">
                 <tr class="text-center">
                     <th>No</th>
                     <th>Nama Kontraktor</th>
                     <th>Risk Level</th>
                     <th>Tanggal Penilaian</th>
+                    <th>Penilaian</th>
                     <th>Email Mitra</th>
                     <th>Progres</th>
                     <th>Aksi</th>
@@ -234,6 +241,10 @@
                             <td class="text-capitalize"><%= dataPSB[i].nama_kontraktor %></td>
                             <td class="text-capitalize"><%= dataPSB[i].risk_level %></td>
                             <td><%= dataPSB[i].tanggal_penilaian %></td>
+                            <td>
+                              <%= dataPSB[i].nilai_total !== undefined ? dataPSB[i].nilai_total : "Belum Dinilai" %>
+                            </td>
+                          
                             <td><%= dataPSB[i].alamat_email %></td>
                             <td>
                                 <% if (dataPSB[i].status_mitra === "Belum Diproses" || dataPSB[i].status_mitra2 === "Belum Diproses") { %>

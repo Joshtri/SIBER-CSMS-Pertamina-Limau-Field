@@ -214,16 +214,20 @@
         
         <div class="container mt-1">
           <style>
-            
+            .custom-table td,
+            .custom-table th {
+                font-size: 14px; /* Adjust the font size as needed */
+            }
           </style>
 
-            <table class="table table-sm table-hover" id="data-table-view">
+            <table class="table table-sm table-hover custom-table" id="data-table-view">
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th>No</th>
                         <th>Nama Pekerjaan</th>  <!-- 🧘 --> 
                         <th>Risk Level</th>
                         <th>Tanggal Penilaian</th>
+                        <th>Penilaian</th>
                         <th>Email Mitra</th>
                         <th>Progres</th>
                         <th>Aksi</th>
@@ -237,6 +241,9 @@
                             <td class="text-capitalize"><%= dataPA[i].nama_pekerjaan %></td>
                             <td class="text-capitalize"><%= dataPA[i].risk_level %></td>
                             <td class="text-capitalize"><%= dataPA[i].tanggal_penilaian %></td>
+                            <td>
+                              <%= dataPA[i].nilai_total ? dataPA[i].nilai_total : "Belum Dinilai" %>
+                            </td>
                             <td><%= dataPA[i].alamat_email %></td>
                             <td>
                               <% if (dataPA[i].status_mitra === "Belum Diproses" || dataPA[i].status_mitra2 === "Belum Diproses") { %>
