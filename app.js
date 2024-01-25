@@ -21,12 +21,7 @@ const PORT = 3003;
 //     saveUninitialized: false,
 
 
-//     cookie: {
-//       maxAge: 1000 * 60 * 60 * 24, // 1 hari
-//       // httpOnly: true,
-//       // sameSite: 'Lax', // Sesuaikan dengan kebutuhan Anda
-//       secure: true, // Hanya dikirimkan melalui HTTPS
-//     },
+
     
 //   })
 // );
@@ -35,6 +30,13 @@ app.use(session({
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true,
+
+      cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 1 hari
+      // httpOnly: true,
+      // sameSite: 'Lax', // Sesuaikan dengan kebutuhan Anda
+      secure: false, // Hanya dikirimkan melalui HTTPS
+    },
 }));
 
 

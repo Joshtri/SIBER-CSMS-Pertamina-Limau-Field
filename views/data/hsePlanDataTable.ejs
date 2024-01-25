@@ -42,7 +42,7 @@
   
 
   <link href="/assets/css/inputCostum.css" rel="stylesheet">
-  <!-- <link href="/assets/css/modalCostum.css" rel="stylesheet"> -->
+  <link href="/assets/css/modalCostum.css" rel="stylesheet">
   <!-- <link href="assets/css/styleCostum.css" rel="stylesheet"> -->
 
   <!-- *Toastr Link  -->
@@ -301,22 +301,20 @@
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
-            <button type="button" style="color: white;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-  
-  
+          <div class="modal-content custom-modal-content">
+              <div class="modal-header custom-modal-header">
+                  <h5 class="modal-title custom-modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                  <button type="button" class="btn-close custom-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body custom-modal-body">
+                  <!-- Modal Content Goes Here -->
+                  <p>Apakah Anda ingin keluar dari dashboard Pertamina?</p>
+              </div>
+              <div class="modal-footer custom-modal-footer">
+                  <a href="/logout" class="btn btn-primary">Ya</a>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+              </div>
           </div>
-          <div class="modal-body">
-            <!-- Modal Content Goes Here -->
-            <p>Apakah anda ingin keluar dari dashboard pertamina ?</p>
-          </div>
-          <div class="modal-footer">
-            <a href="/logout" class="btn btn-primary">Ya</a>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-          </div>
-        </div>
       </div>
     </div>
   
