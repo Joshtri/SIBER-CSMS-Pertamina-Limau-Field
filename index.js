@@ -75,7 +75,7 @@ app.set("views", [
 
 
 //menampilkan assets.
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public/"));
 
 app.listen(PORT,() =>{
     console.log(`run on port  <http://localhost>:${PORT}`);
