@@ -28,7 +28,7 @@ const PORT = 3003;
 
 app.use(session({
   secret: 'your-secret-key',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
 
     //   cookie: {

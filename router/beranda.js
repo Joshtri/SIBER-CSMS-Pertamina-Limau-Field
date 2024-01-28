@@ -22,7 +22,7 @@ const {isLoggedIn} = require('../auth/protect');
 router.get('/', berandaController.berandaWeb);
 
 //router-beranda admin.
-router.get('/dashboard-pertamina', berandaController.berandaAdmin, isLoggedIn);
+router.get('/dashboard-pertamina', berandaController.berandaAdmin);
 
 //router-login admin.
 router.get('/login-pertamina', berandaController.loginPertamina);
