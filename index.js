@@ -36,7 +36,8 @@ app.use(morgan('tiny'));
 app.use(cors(corsOptions));
 
 // Middleware untuk menguraikan JSON dalam body permintaan
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
