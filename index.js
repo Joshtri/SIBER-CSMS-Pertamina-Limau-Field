@@ -6,44 +6,34 @@ const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 
-
 const database = require('./utils/database');
 const app = express();
 const PORT = 3003;
 
-
-// // menggunakan express-session
-// app.use(
-//   session({
-//     secret: "secretprogramming",
-//     resave: false,
-//     // secure: true,
-//     saveUninitialized: false,
-
-
-
-    
-//   })
-// );
+const corsOptions = {
+  origin: 'http://localhost:8080', // Ganti dengan origin/domain Anda
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Mengizinkan pengiriman cookie dan header otentikasi
+  optionsSuccessStatus: 204, // Beberapa browser mungkin memerlukan status 204
+};
 
 // Set Trust Proxy jika di-host di bawah reverse proxy
 app.set('trust proxy', 1);
 
 app.use(session({
   secret: 'your-secret-key',
-  // resave: true,
   saveUninitialized: true,
   cookie: {
-    // secure: true,
     maxAge: 1000 * 60 * 60 * 24, // 1 hari
   },
 }));
-database.connect();
 
+database.connect();
 
 app.use(morgan('tiny'));
 
-app.use(cors());
+// Middleware untuk mengizinkan CORS
+app.use(cors(corsOptions));
 
 // Middleware untuk menguraikan JSON dalam body permintaan
 app.use(bodyParser.json());
@@ -56,15 +46,13 @@ const routerMitra = require('./router/mitra');
 
 app.use("/", routerBeranda, routerMitra);
 
-// app.use("/", routerMitra)
-
 // Menyediakan rute statis untuk file PDF di direktori 'uploads'
 app.use('/data/detail-hse/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/data/detail-psb/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/data/detail-pb/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/data/detail-pa/uploads', express.static(path.join(__dirname, 'uploads')));
-app.set("view engine", "ejs");
 
+app.set("view engine", "ejs");
 
 app.set("views", [
     path.join(__dirname, "/views"),
@@ -73,11 +61,10 @@ app.set("views", [
     path.join(__dirname, "/views/updates"),
   ]);
 
-  // <!-- Contoh kode jika menggunakan Express.js -->
-  app.use(express.static('public'));
-//menampilkan assets.
+// Menyediakan rute statis untuk file di direktori 'public'
+app.use(express.static('public'));
 app.use(express.static(__dirname + "/public"));
 
 app.listen(PORT,() =>{
     console.log(`run on port  <http://localhost>:${PORT}`);
-}); 
+});
