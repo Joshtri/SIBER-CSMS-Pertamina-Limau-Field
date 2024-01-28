@@ -5,10 +5,18 @@ const session = require ('express-session')
 const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
+const MySQLStore = require('connect-mysql-session')(session);
 
 const database = require('./utils/database');
 const app = express();
 const PORT = 3003;
+
+
+
+// const sessionStore = new MySQLStore({
+//   /* Konfigurasi untuk MySQLStore di sini */
+// });
+
 
 const corsOptions = {
   origin: 'http://localhost:8080', // Ganti dengan origin/domain Anda
@@ -22,13 +30,14 @@ app.set('trust proxy', 1);
 
 app.use(session({
   secret: 'your-secret-key',
-  saveUninitialized: true,
+  saveUninitialized:  true,
+  resave : false,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24, // 1 hari
   },
 }));
 
-database.connect();
+// database.on();
 
 app.use(morgan('tiny'));
 

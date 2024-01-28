@@ -37,55 +37,44 @@ const upload = multer({ storage: storage });
 // }
 
 //get view upload data mitra
-exports.formMitra = (req, res) => {
-  const sqlRead = "SELECT * FROM fungsi_pertamina";
+exports.formMitra = async (req, res) => {
+  try {
+    // Gunakan query dengan promise
+    const [readResults, fields] = await db.execute("SELECT * FROM fungsi_pertamina");
 
-  db.query(sqlRead, (err, readResults) => {
-    if (err) {
-      throw err;
-    } else if (!err) {
-      // Filter out the data with id 5
-      // const filteredFungsiPertamina = readResults.filter(
-      //   (fungsi) => fungsi.id_fungsi !== 5
-      // );
+    // Filter out the data with id 5
+    // const filteredFungsiPertamina = readResults.filter(
+    //   (fungsi) => fungsi.id_fungsi !== 5
+    // );
 
-      res.render('formMitra', {
-        fungsi_pertamina: readResults,
-        notifSuksesHSEUpload: false,
-        notifSuksesPSBUpload: false,
-        notifSuksesPBUpload: false,
-        notifSuksesPAUpload: false,
-      });
-    }
-  });
+    res.render('formMitra', {
+      fungsi_pertamina: readResults,
+      notifSuksesHSEUpload: false,
+      notifSuksesPSBUpload: false,
+      notifSuksesPBUpload: false,
+      notifSuksesPAUpload: false,
+    });
+  } catch (err) {
+    console.error(`Error fetching data from database: ${err.message}`);
+    res.status(500).send('Internal Server Error');
+  }
 };
 
 
 
 
 //post data mitra. 
-exports.postFormHSEPlan = (req,res)=>{
-
-  // req.files berisi array informasi file yang diupload
-  // req.body berisi data lain yang dikirimkan dalam formulir
-
-  // Ekstrak informasi file
-  // const fileArray = req.files;
-  // const filePaths = fileArray.map(file => file.path);
-    
-  //*field mitra.
-  const mitraHSEFields = {
-    risk_assessment_id : req.body.risk_assessment_id,
-      risk_level : req.body.risk_level,
-      nama_pekerjaan : req.body.nama_pekerjaan,
-      nama_mitra : req.body.nama_mitra, 
-      tanggal_audit : req.body.tanggal_audit,
-      lokasi_kerja : req.body.lokasi_kerja,
-      no_hp : req.body.no_hp,
-      alamat_email : req.body.alamat_email,
-      // file_paths : filePaths.join(';')
-
-      //file uploads.
+exports.postFormHSEPlan = async (req, res) => {
+  try {
+    const mitraHSEFields = {
+      risk_assessment_id: req.body.risk_assessment_id,
+      risk_level: req.body.risk_level,
+      nama_pekerjaan: req.body.nama_pekerjaan,
+      nama_mitra: req.body.nama_mitra, 
+      tanggal_audit: req.body.tanggal_audit,
+      lokasi_kerja: req.body.lokasi_kerja,
+      no_hp: req.body.no_hp,
+      alamat_email: req.body.alamat_email,
       file1: req.files[0].filename,
       file2: req.files[1].filename,
       file3: req.files[2].filename,
@@ -94,28 +83,26 @@ exports.postFormHSEPlan = (req,res)=>{
       file6: req.files[5].filename,
       file7: req.files[6].filename,
       file8: req.files[7].filename,
+    };
 
-  };
+    const sql = 'INSERT INTO hseplan_table SET ?';
+    // Menggunakan execute untuk menggunakan promise
+    const [results, fields] = await db.execute(sql, mitraHSEFields);
 
-  const sql = 'INSERT INTO hseplan_table SET ?'
-  db.query(sql,mitraHSEFields,(err,results)=>{
-    if(err){
-      throw err;
-    }
-    else if(!err){
-      //* next action.
-      // res.send("Berhasil :)");
-      res.render('formMitra',{
-        fungsi_pertamina: [],
-        notifSuksesHSEUpload : true,
-        notifSuksesPSBUpload : false,
-        notifSuksesPBUpload : false,
-        notifSuksesPAUpload : false,
-      });
-      
-    }
-  });
+    // Next action setelah penyimpanan berhasil
+    res.render('formMitra', {
+      fungsi_pertamina: [],
+      notifSuksesHSEUpload: true,
+      notifSuksesPSBUpload: false,
+      notifSuksesPBUpload: false,
+      notifSuksesPAUpload: false,
+    });
+  } catch (err) {
+    console.error(`Error inserting data to database: ${err.message}`);
+    res.status(500).send('Internal Server Error');
+  }
 };
+
 
 
 exports.postPSBForm = (req, res) => {
