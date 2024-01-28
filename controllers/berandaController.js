@@ -3,8 +3,6 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const util = require("util");
 
-
-
 const db = require("../utils/database");
 
 const query = util.promisify(db.query).bind(db);
@@ -282,7 +280,6 @@ exports.berandaWeb = (req, res) => {
 exports.berandaAdmin = async (req, res) => {
 
   const DashboardAdminTitle = "Dashboard Pertamina";
-  
 
   if (!req.session.userData || !req.session.userData.id_verifikator) {
     // Jika pengguna belum login, redirect ke halaman login
