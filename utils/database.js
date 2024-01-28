@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 const db = mysql.createConnection({
-    host:"localhost", // local pc only.
-    user: "root", //local pc .
-    password:"",
-    database: "db_siber_csms_pertamina_limau",
+    host:"banbqbykaghzzrsqrdei-mysql.services.clever-cloud.com", // local pc only.
+    user: "uhwc7dnlccad96jy", //local pc .
+    password:"uvznVcwfcyZSJ828Fb7t",
+    database: "banbqbykaghzzrsqrdei",
 });
 
 db.connect(function(err,results){
