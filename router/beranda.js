@@ -22,7 +22,7 @@ const {isLoggedIn} = require('../auth/protect');
 router.get('/', berandaController.berandaWeb);
 
 //router-beranda admin.
-router.get('/dashboard-pertamina', berandaController.berandaAdmin,isLoggedIn);
+router.get('/dashboard-pertamina', berandaController.berandaAdmin,);
 
 //router-login admin.
 router.get('/login-pertamina', berandaController.loginPertamina);
@@ -32,7 +32,7 @@ router.get('/logout', berandaController.logOutAccount);
 
 
 //router view -CREATE PIN PERTAMINA.
-router.get('/TEBNiTYQrFFULHqFQluEuw==', berandaController.createPINPage, isLoggedIn);
+router.get('/TEBNiTYQrFFULHqFQluEuw==', berandaController.createPINPage,);
 
 
 //router post untuk buat pin
