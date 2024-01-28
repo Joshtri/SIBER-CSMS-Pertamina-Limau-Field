@@ -73,7 +73,8 @@ app.set("views", [
     path.join(__dirname, "/views/updates"),
   ]);
 
-
+  // <!-- Contoh kode jika menggunakan Express.js -->
+  app.use(express.static('public'));
 //menampilkan assets.
 app.use(express.static(__dirname + "/public"));
 
