@@ -28,7 +28,6 @@ const PORT = 3003;
 
 // Set Trust Proxy jika di-host di bawah reverse proxy
 app.set('trust proxy', 1);
-database.connect();
 
 app.use(session({
   secret: 'your-secret-key',
@@ -39,6 +38,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24, // 1 hari
   },
 }));
+database.connect();
 
 
 app.use(morgan('tiny'));
