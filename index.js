@@ -26,17 +26,18 @@ const PORT = 3003;
 //   })
 // );
 
+// Set Trust Proxy jika di-host di bawah reverse proxy
+app.set('trust proxy', 1);
+
 app.use(session({
   secret: 'your-secret-key',
   resave: true,
   saveUninitialized: true,
-
-    //   cookie: {
-    //   maxAge: 1000 * 60 * 60 * 24, // 1 hari
-
-    // },
+  cookie: {
+    secure: true,
+    maxAge: 1000 * 60 * 60 * 24, // 1 hari
+  },
 }));
-
 
 database.connect();
 

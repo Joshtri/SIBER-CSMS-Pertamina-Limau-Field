@@ -32,18 +32,18 @@ router.post('/post-data-pa',upload.array('files', 8), mitraController.postPAForm
 
 
 //read data table
-router.get('/data/hse-data', mitraController.readHSEData);
-router.get('/data/psb-data', mitraController.readPSBData);
-router.get('/data/pb-data',mitraController.readPBData);
-router.get('/data/pa-data', mitraController.readPAData);
+router.get('/data/hse-data', mitraController.readHSEData, isLoggedIn);
+router.get('/data/psb-data', mitraController.readPSBData, isLoggedIn);
+router.get('/data/pb-data',mitraController.readPBData, isLoggedIn);
+router.get('/data/pa-data', mitraController.readPAData, isLoggedIn);
 
 
 
 
-router.get('/data/detail-hse/:id_hse',  mitraController.detailHSEData);
-router.get('/data/detail-psb/:id_psb',  mitraController.detailPSBData);
-router.get('/data/detail-pb/:id_pb',  mitraController.detailPBData);
-router.get('/data/detail-pa/:id_pa',  mitraController.detailPAData);
+router.get('/data/detail-hse/:id_hse',  mitraController.detailHSEData, isLoggedIn);
+router.get('/data/detail-psb/:id_psb',  mitraController.detailPSBData, isLoggedIn);
+router.get('/data/detail-pb/:id_pb',  mitraController.detailPBData, isLoggedIn);
+router.get('/data/detail-pa/:id_pa',  mitraController.detailPAData, isLoggedIn);
 
 
 
