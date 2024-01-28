@@ -5,7 +5,7 @@ const session = require ('express-session')
 const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
-const MySQLStore = require('connect-mysql-session')(session);
+// const MySQLStore = require('connect-mysql-session')(session);
 
 const database = require('./utils/database');
 const app = express();
